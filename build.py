@@ -25,7 +25,7 @@ from datetime import datetime, timezone, timedelta
 # ============================================================
 # 定数
 # ============================================================
-DIST_DIR        = 'dist'
+DIST_DIR        = 'dist/sikoku-kaisen'
 INDEX_HTML      = 'index.html'
 DATA_JSON       = 'data.json'
 MASTER_CSV      = 'master.csv'
