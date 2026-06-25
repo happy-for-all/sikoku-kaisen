@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>四国回線提案シミュレーター｜docomo光 乗り換えメリット比較</title>
+  <link rel="canonical" href="https://magocoro.pray-power-is-god-and-cocoro.com/sikoku-kaisen/">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9YTTCQ1ZX6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9YTTCQ1ZX6');
+  </script>
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --docomo-red: #cc0000;
+      --docomo-dark: #990000;
+      --white: #ffffff;
+      --gray-bg: #f5f5f5;
+      --gray-border: #e0e0e0;
+      --gray-text: #666666;
+      --text-main: #222222;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    body {
+      font-family: 'Hiragino Kana W3', 'Hiragino Sans', 'Meiryo', sans-serif;
+      font-size: 14px;
+      color: var(--text-main);
+      background: var(--gray-bg);
+      min-height: 100vh;
+    }
+
+    /* ========== HEADER ========== */
+    .site-header {
+      background: var(--docomo-red);
+      color: var(--white);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-header i { font-size: 28px; }
+    .site-header h1 { font-size: 17px; font-weight: 600; line-height: 1.3; }
+    .site-header p  { font-size: 11px; opacity: 0.85; margin-top: 2px; }
+
+    /* ========== MAIN WRAP ========== */
+    .wrap {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+    }
+
+    /* ========== CARD ========== */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-title i { font-size: 16px; color: var(--docomo-red); }
+
+    /* ========== FORM ELEMENTS ========== */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .field-row.single { grid-template-columns: 1fr; }
+    .field-group { display: flex; flex-direction: column; gap: 4px; }
+    .field-group label { font-size: 12px; color: var(--gray-text); }
+
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid var(--gray-border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--text-main);
+      background: var(--white);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+    select:focus, input:focus { outline: 2px solid var(--docomo-red); outline-offset: 1px; border-color: var(--docomo-red); }
+
+    /* ========== TOGGLE ========== */
+    .toggle-row { display: flex; gap: 8px; }
+    .toggle-btn {
+      flex: 1;
+      padding: 9px;
+      border: 1px solid var(--gray-border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      cursor: pointer;
+      background: var(--white);
+      color: var(--gray-text);
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .toggle-btn.active { background: var(--docomo-red); color: var(--white); border-color: var(--docomo-red); font-weight: 600; }
+
+    /* ========== MANUAL INPUT AREA ========== */
+    .manual-box {
+      background: var(--gray-bg);
+      border: 1px dashed var(--gray-border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    /* ========== PRESET INFO ========== */
+    .preset-info {
+      background: #fff8e1;
+      border-left: 3px solid #f9a825;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #6d4c00;
+      margin-top: 8px;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ========== CALC BUTTON ========== */
+    .calc-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--docomo-red);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.15s;
+      margin-top: 4px;
+    }
+    .calc-btn:hover { background: var(--docomo-dark); }
+    .calc-btn i { font-size: 20px; }
+
+    /* ========== RESULT SECTION ========== */
+    #resultSection { display: none; }
+
+    .result-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .result-topbar h2 { font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .result-topbar h2 i { color: var(--docomo-red); font-size: 22px; }
+
+    /* PDF / Print Button */
+    .print-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border: 1px solid var(--gray-border);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: background 0.15s;
+    }
+    .print-btn:hover { background: var(--gray-bg); }
+
+    /* ========== TALK BOX ========== */
+    .talk-box {
+      background: #fff5f5;
+      border-left: 4px solid var(--docomo-red);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .talk-box .talk-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--docomo-red);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ========== RANK CARD ========== */
+    .rank-card {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .rank-card.docomo-highlight { border: 2px solid var(--docomo-red); }
+
+    .rank-card-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .rank-card-header:hover { background: var(--gray-bg); }
+
+    .rank-badge {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .rank-1 { background: #fff0b3; color: #7a5c00; }
+    .rank-2 { background: #e8e8e8; color: #555; }
+    .rank-3 { background: #f0e0cc; color: #7a4400; }
+    .rank-other { background: #f5f5f5; color: #888; }
+
+    .rank-name { flex: 1; font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+    .rank-price { text-align: right; }
+    .rank-price .price-num { font-size: 20px; font-weight: 700; color: var(--docomo-red); }
+    .rank-price .price-unit { font-size: 11px; color: var(--gray-text); }
+
+    .stars { font-size: 14px; }
+    .star-on { color: #e0a800; }
+    .star-off { color: #ddd; }
+
+    /* Badges */
+    .badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    .badge-recommend { background: var(--docomo-red); color: var(--white); font-weight: 600; }
+    .badge-current   { background: #e3f2fd; color: #1565c0; }
+    .badge-diff-up   { background: #ffebee; color: #c62828; }
+    .badge-diff-down { background: #e8f5e9; color: #2e7d32; }
+    .badge-same      { background: #f5f5f5; color: #666; }
+
+    /* ========== ACCORDION BODY ========== */
+    .accord-body {
+      display: none;
+      border-top: 1px solid var(--gray-border);
+      padding: 12px 14px;
+      background: #fafafa;
+    }
+    .accord-body.open { display: block; }
+
+    .cost-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .cost-table td { padding: 5px 0; vertical-align: top; }
+    .cost-table .lbl { color: var(--gray-text); }
+    .cost-table .val { text-align: right; font-weight: 600; white-space: nowrap; }
+    .cost-table .saving { color: #2e7d32; }
+    .cost-table .sep-row td { border-top: 1px solid var(--gray-border); padding-top: 7px; }
+    .cost-table .total-row .lbl,
+    .cost-table .total-row .val { font-weight: 700; font-size: 14px; }
+    .cost-note { font-size: 11px; color: var(--gray-text); margin-top: 6px; line-height: 1.6; }
+
+    /* Chevron */
+    .chevron { font-size: 18px; color: var(--gray-text); transition: transform 0.2s; flex-shrink: 0; }
+    .chevron.open { transform: rotate(180deg); }
+
+    /* ========== STAFF PANEL ========== */
+    .staff-panel {
+      display: none;
+      background: #fffbf0;
+      border: 1px solid #ffe082;
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-top: 16px;
+    }
+    .alert-item { font-size: 12px; color: #6d4c00; line-height: 1.8; }
+    .alert-badge-staff {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #fff3cd;
+      color: #856404;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .talk-examples { font-size: 12px; color: var(--gray-text); line-height: 1.9; margin-top: 8px; }
+
+    /* ========== BACK BUTTON ========== */
+    .back-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--white);
+      color: var(--text-main);
+      border: 1px solid var(--gray-border);
+      border-radius: var(--radius-lg);
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .back-btn:hover { background: var(--gray-bg); }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--gray-text);
+      margin-top: 30px;
+      padding-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    /* ========== ADSENSE ========== */
+    .adsense-container { text-align: center; margin: 30px 0; min-height: 100px; }
+
+    /* ========== PRINT STYLES ========== */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff; font-size: 12px; }
+      .site-header { position: static; }
+      .wrap { padding: 10px; }
+      .rank-card { break-inside: avoid; border: 1px solid #ccc !important; }
+      .accord-body { display: block !important; }
+      .staff-panel { display: none !important; }
+      .talk-box { border-left: 3px solid var(--docomo-red); }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 480px) {
+      .field-row { grid-template-columns: 1fr; }
+      .rank-price .price-num { font-size: 17px; }
+      .site-header h1 { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header no-print">
+  <i class="ti ti-device-mobile" aria-hidden="true"></i>
+  <div>
+    <h1>四国回線提案シミュレーター</h1>
+    <p>docomo光への乗り換えメリットを実質料金でわかりやすくご提案</p>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="wrap">
+
+  <!-- ===== INPUT SECTION ===== -->
+  <section id="inputSection" aria-label="お客様情報入力">
+
+    <!-- お客様情報 -->
+    <div class="card">
+      <div class="section-title">
+        <i class="ti ti-user" aria-hidden="true"></i>お客様情報
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label for="pref">お住まい（県）</label>
+          <select id="pref">
+            <option value="">選択してください</option>
+            <option value="徳島">徳島県</option>
+            <option value="香川">香川県</option>
+            <option value="愛媛">愛媛県</option>
+            <option value="高知">高知県</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="people">家族人数（docomo契約人数）</label>
+          <select id="people">
+            <option value="1">1名</option>
+            <option value="2">2名</option>
+            <option value="3" selected>3名</option>
+            <option value="4">4名</option>
+            <option value="5">5名</option>
+            <option value="6">6名</option>
+            <option value="7">7名</option>
+            <option value="8">8名</option>
+            <option value="9">9名</option>
+            <option value="10">10名</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 現在の回線 -->
+    <div class="card">
+      <div class="section-title">
+        <i class="ti ti-wifi" aria-hidden="true"></i>現在ご利用の回線
+      </div>
+
+      <div class="field-group" style="margin-bottom:10px;">
+        <label for="currentLine">回線会社</label>
+        <select id="currentLine" onchange="onLineChange()">
+          <option value="">選択してください</option>
+          <option value="picara">ピカラ光（STNet）</option>
+          <option value="flets">NTTフレッツ光</option>
+          <option value="au">auひかり</option>
+          <option value="catv_kagawa">ケーブルメディア四国（香川）</option>
+          <option value="catv_kochi">高知ケーブルテレビ（高知）</option>
+          <option value="other_catv">その他CATV（手入力）</option>
+        </select>
+      </div>
+
+      <!-- その他CATV 手入力 -->
+      <div id="manualInputs" class="manual-box" style="display:none;">
+        <div class="field-group" style="margin-bottom:8px;">
+          <label for="catvName">CATV会社名（任意）</label>
+          <input type="text" id="catvName" placeholder="例：〇〇ケーブルテレビ">
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="manualMonthly">現在の月額料金（円）</label>
+            <input type="number" id="manualMonthly" placeholder="5000" min="0">
+          </div>
+          <div class="field-group">
+            <label for="manualCancel">解約金（円）</label>
+            <input type="number" id="manualCancel" placeholder="10000" min="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- プリセット参考値 -->
+      <div id="presetInfo" class="preset-info">
+        <i class="ti ti-info-circle" aria-hidden="true"></i>
+        <span id="presetText"></span>
+      </div>
+
+      <!-- 月額・解約金（共通） -->
+      <div class="field-row" style="margin-top:10px;">
+        <div class="field-group">
+          <label for="currentMonthly">現在の月額料金（円）</label>
+          <input type="number" id="currentMonthly" placeholder="5500" min="0">
+        </div>
+        <div class="field-group">
+          <label for="currentCancel">現在の解約金（円）</label>
+          <input type="number" id="currentCancel" placeholder="10000" min="0">
+        </div>
+      </div>
+    </div>
+
+    <!-- 比較期間 -->
+    <div class="card">
+      <div class="section-title">
+        <i class="ti ti-calendar" aria-hidden="true"></i>比較期間
+      </div>
+      <div class="toggle-row">
+        <button class="toggle-btn active" id="btn24" onclick="setPeriod(24)" type="button">24ヶ月（2年）</button>
+        <button class="toggle-btn"        id="btn36" onclick="setPeriod(36)" type="button">36ヶ月（3年）</button>
+      </div>
+    </div>
+
+    <button class="calc-btn no-print" onclick="calcAll()" type="button">
+      <i class="ti ti-calculator" aria-hidden="true"></i>実質料金を計算する
+    </button>
+
+    <!-- AdSense（コメントアウト：本番運用時に外す） -->
+    <!--
+    <div class="adsense-container">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2908004621823900" crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:300px;height:250px"
+           data-ad-client="ca-pub-2908004621823900"
+           data-ad-slot="3799886389"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+    -->
+
+  </section>
+
+  <!-- ===== RESULT SECTION ===== -->
+  <section id="resultSection" aria-label="計算結果">
+
+    <div class="result-topbar no-print">
+      <h2><i class="ti ti-trophy" aria-hidden="true"></i>実質月額ランキング</h2>
+      <button class="print-btn" onclick="window.print()" type="button">
+        <i class="ti ti-printer" aria-hidden="true"></i>お客様用PDF出力
+      </button>
+    </div>
+
+    <!-- 印刷時ヘッダー -->
+    <div class="print-only" style="display:none; margin-bottom:12px;">
+      <h2 style="font-size:16px; color:var(--docomo-red);">四国回線提案シミュレーター　比較結果</h2>
+    </div>
+
+    <!-- 営業トーク -->
+    <div id="talkBox" class="talk-box"></div>
+
+    <!-- ランキングリスト -->
+    <div id="rankList"></div>
+
+    <!-- スタッフパネル（?staff=1 のみ表示） -->
+    <div id="staffPanel" class="staff-panel no-print">
+      <div class="section-title">
+        <i class="ti ti-tools" aria-hidden="true"></i>スタッフモード
+      </div>
+      <div class="alert-badge-staff">
+        <i class="ti ti-alert-triangle" aria-hidden="true"></i>手動確認が必要な会社があります
+      </div>
+      <div class="alert-item">
+        <p>・ピカラ光：キャンペーンページに変化を検知（2026-06-25）。CSVの確認を推奨。</p>
+        <p>・NTTフレッツ光：robots.txt によりSP不可。手動確認が必要です。</p>
+      </div>
+      <div class="talk-examples">
+        <strong>切り返しトーク例</strong><br>
+        「速度が遅くなるのでは？」→「docomo光は最大1Gbps。現在のCATVより高速です。」<br>
+        「サポートが心配」→「ドコモショップで直接サポート対応いたします。」<br>
+        「工事が面倒」→「工事日程はご希望に合わせて調整可。工事費込みの実質コストで比較しています。」
+      </div>
+    </div>
+
+    <button class="back-btn no-print" onclick="goBack()" type="button">
+      <i class="ti ti-arrow-left" aria-hidden="true"></i>入力に戻る
+    </button>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer no-print">
+  <p>※ 本ツールの料金はダミーデータです。最新料金は各社公式サイトをご確認ください。</p>
+  <p style="margin-top:4px;">四国回線提案シミュレーター &copy; 2026</p>
+</footer>
+
+<!-- ===== SCRIPT ===== -->
+<script>
+"use strict";
+
+/* ---------- 定数 ---------- */
+const PERIOD = { val: 24 };
+
+const COMPANIES = [
+  {
+    id: 'docomo', name: 'ドコモ光',
+    monthly: 5720, initial: 3300, construction: 0,
+    term: 24, cancel: 0,
+    discount_pp: 1100, cashback: 0,
+    speed: 1000, notes: '光コラボ。解約金なし。', is_manual: true
+  },
+  {
+    id: 'picara', name: 'ピカラ光（STNet）',
+    monthly: 5280, initial: 3300, construction: 19800,
+    term: 24, cancel: 10000,
+    discount_pp: 0, cashback: 20000,
+    speed: 1000, notes: '四国全域対応。高速光回線。', is_manual: false
+  },
+  {
+    id: 'flets', name: 'NTTフレッツ光',
+    monthly: 6050, initial: 3300, construction: 19800,
+    term: 24, cancel: 5000,
+    discount_pp: 0, cashback: 0,
+    speed: 1000, notes: '全国対応。robots.txt によりSP監視不可。手動確認が必要です。', is_manual: true
+  },
+  {
+    id: 'au', name: 'auひかり',
+    monthly: 5610, initial: 3300, construction: 24200,
+    term: 24, cancel: 15000,
+    discount_pp: 0, cashback: 30000,
+    speed: 1000, notes: 'auスマホ割あり。', is_manual: false
+  },
+  {
+    id: 'catv_kagawa', name: 'ケーブルメディア四国',
+    monthly: 4950, initial: 5500, construction: 11000,
+    term: 12, cancel: 5000,
+    discount_pp: 0, cashback: 0,
+    speed: 320, notes: '香川限定。最大320Mbps。', is_manual: false
+  },
+  {
+    id: 'catv_kochi', name: '高知ケーブルテレビ（KCB）',
+    monthly: 4620, initial: 5500, construction: 11000,
+    term: 12, cancel: 5000,
+    discount_pp: 0, cashback: 0,
+    speed: 200, notes: '高知限定。最大200Mbps。', is_manual: false
+  }
+];
+
+const PRESETS = {
+  picara:      { monthly: 5280,  cancel: 10000, hint: 'ピカラ光の参考値：月額5,280円・解約金10,000円' },
+  flets:       { monthly: 6050,  cancel:  5000, hint: 'NTTフレッツ光の参考値：月額6,050円・解約金5,000円' },
+  au:          { monthly: 5610,  cancel: 15000, hint: 'auひかりの参考値：月額5,610円・解約金15,000円' },
+  catv_kagawa: { monthly: 4950,  cancel:  5000, hint: 'ケーブルメディア四国の参考値：月額4,950円・解約金5,000円' },
+  catv_kochi:  { monthly: 4620,  cancel:  5000, hint: '高知ケーブルテレビの参考値：月額4,620円・解約金5,000円' }
+};
+
+/* ---------- 期間切り替え ---------- */
+function setPeriod(n) {
+  PERIOD.val = n;
+  document.getElementById('btn24').className = 'toggle-btn' + (n === 24 ? ' active' : '');
+  document.getElementById('btn36').className = 'toggle-btn' + (n === 36 ? ' active' : '');
+}
+
+/* ---------- 回線選択変更 ---------- */
+function onLineChange() {
+  const v   = document.getElementById('currentLine').value;
+  const mi  = document.getElementById('manualInputs');
+  const pi  = document.getElementById('presetInfo');
+  const pt  = document.getElementById('presetText');
+  const mon = document.getElementById('currentMonthly');
+  const cnl = document.getElementById('currentCancel');
+
+  mi.style.display = (v === 'other_catv') ? 'block' : 'none';
+
+  if (PRESETS[v]) {
+    mon.value = PRESETS[v].monthly;
+    cnl.value = PRESETS[v].cancel;
+    pt.textContent = PRESETS[v].hint;
+    pi.style.display = 'flex';
+  } else {
+    pi.style.display = 'none';
+    if (v === 'other_catv') { mon.value = ''; cnl.value = ''; }
+  }
+}
+
+/* ---------- 実質月額計算 ---------- */
+function calcReal(c, people, period, otherCancel) {
+  const gross  = c.initial + c.construction + c.monthly * period + otherCancel;
+  const deduct = c.cashback + c.discount_pp * people * period;
+  const total  = Math.max(gross - deduct, 0);
+  return {
+    total,
+    monthly: Math.round(total / period),
+    gross,
+    deduct,
+    familyDisc: c.discount_pp * people * period,
+    c
+  };
+}
+
+/* ---------- 星マーク ---------- */
+function starsHtml(score) {
+  let s = '';
+  for (let i = 1; i <= 5; i++) {
+    s += `<span class="${i <= score ? 'star-on' : 'star-off'}">★</span>`;
+  }
+  return s;
+}
+
+/* ---------- メイン計算 ---------- */
+function calcAll() {
+  const pref          = document.getElementById('pref').value;
+  const people        = parseInt(document.getElementById('people').value) || 3;
+  const period        = PERIOD.val;
+  const currentMonthly = parseInt(document.getElementById('currentMonthly').value) || 0;
+  const currentCancel  = parseInt(document.getElementById('currentCancel').value) || 0;
+  const lineVal        = document.getElementById('currentLine').value;
+
+  if (!pref)    { alert('お住まいの県を選択してください。'); return; }
+  if (!lineVal) { alert('現在の回線を選択してください。'); return; }
+
+  /* その他CATV の追加 */
+  let companies = JSON.parse(JSON.stringify(COMPANIES));
+  if (lineVal === 'other_catv') {
+    const nm = document.getElementById('catvName').value.trim() || 'その他CATV';
+    companies.push({
+      id: 'other_catv', name: nm,
+      monthly: currentMonthly, initial: 5000, construction: 11000,
+      term: period, cancel: 0,
+      discount_pp: 0, cashback: 0,
+      speed: 200, notes: '手入力値。', is_manual: true
+    });
+  }
+
+  /* 計算 */
+  const docomoData   = companies.find(c => c.id === 'docomo');
+  const docomoResult = calcReal(docomoData, people, period, currentCancel);
+
+  const results = companies.map(c => ({
+    ...calcReal(c, people, period, currentCancel),
+    isCurrent: c.id === lineVal,
+    isDocomo:  c.id === 'docomo'
+  })).sort((a, b) => a.monthly - b.monthly);
+
+  /* 画面切り替え */
+  document.getElementById('inputSection').style.display  = 'none';
+  document.getElementById('resultSection').style.display = 'block';
+
+  /* 営業トーク */
+  const famDisc = 1100 * people * period;
+  const talkHtml = `
+    <div class="talk-label"><i class="ti ti-speakerphone" aria-hidden="true"></i>おすすめ営業トーク</div>
+    ご家族<strong>${people}名様</strong>のdocomo光セット割で、毎月<strong>${(1100 * people).toLocaleString()}円</strong>のスマホ料金割引！
+    ${period}ヶ月で合計<strong>${famDisc.toLocaleString()}円</strong>お得です。
+    実質月額は<strong>${docomoResult.monthly.toLocaleString()}円/月</strong>で、工事費・解約金込みのトータルでもNo.1のお得さです！
+  `;
+  document.getElementById('talkBox').innerHTML = talkHtml;
+
+  /* ランキング生成 */
+  let html = '';
+  results.forEach((r, i) => {
+    const rank      = i + 1;
+    const badgeClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-other';
+    const isDoc     = r.isDocomo;
+    const diff      = r.monthly - docomoResult.monthly;
+    const starScore = isDoc ? 5 : Math.max(1, Math.min(4, Math.round(4 - diff / 500)));
+
+    let diffBadge = '';
+    if (!isDoc) {
+      if (diff > 0)      diffBadge = `<span class="badge badge-diff-up">docomo光より +${diff.toLocaleString()}円/月</span>`;
+      else if (diff < 0) diffBadge = `<span class="badge badge-diff-down">docomo光より ${diff.toLocaleString()}円/月</span>`;
+      else               diffBadge = `<span class="badge badge-same">同額</span>`;
+    }
+
+    const recoBadge    = isDoc    ? '<span class="badge badge-recommend">おすすめ</span>' : '';
+    const currentBadge = r.isCurrent ? '<span class="badge badge-current">現在ご利用中</span>' : '';
+
+    html += `
+      <div class="rank-card ${isDoc ? 'docomo-highlight' : ''}">
+        <div class="rank-card-header" onclick="toggleAccord('acc${i}','chv${i}')"
+             role="button" aria-expanded="false" aria-controls="acc${i}">
+          <div class="rank-badge ${badgeClass}">${rank}</div>
+          <div class="rank-name">${r.c.name}${recoBadge}${currentBadge}</div>
+          <div class="rank-price">
+            <div><span class="price-num">${r.monthly.toLocaleString()}</span><span class="price-unit">円/月</span></div>
+            <div>${starsHtml(starScore)} ${diffBadge}</div>
+          </div>
+          <i class="ti ti-chevron-down chevron" id="chv${i}" aria-hidden="true"></i>
+        </div>
+        <div class="accord-body" id="acc${i}">
+          <table class="cost-table">
+            <tr><td class="lbl">契約手数料</td><td class="val">${r.c.initial.toLocaleString()}円</td></tr>
+            <tr><td class="lbl">工事費</td><td class="val">${r.c.construction.toLocaleString()}円</td></tr>
+            <tr><td class="lbl">月額料金 × ${period}ヶ月</td><td class="val">${(r.c.monthly * period).toLocaleString()}円</td></tr>
+            <tr><td class="lbl">現在の解約金</td><td class="val">${currentCancel.toLocaleString()}円</td></tr>
+            <tr class="sep-row"><td class="lbl">かかるコスト合計</td><td class="val">${r.gross.toLocaleString()}円</td></tr>
+            <tr><td class="lbl saving">キャンペーン還元</td><td class="val saving">△${r.c.cashback.toLocaleString()}円</td></tr>
+            <tr><td class="lbl saving">docomo家族割 × ${people}名 × ${period}ヶ月</td><td class="val saving">△${r.familyDisc.toLocaleString()}円</td></tr>
+            <tr class="sep-row total-row"><td class="lbl">実質トータルコスト</td><td class="val">${r.total.toLocaleString()}円</td></tr>
+            <tr><td class="lbl" style="font-size:14px;font-weight:700;">実質月額</td><td class="val" style="font-size:16px;color:var(--docomo-red);">${r.monthly.toLocaleString()}円/月</td></tr>
+          </table>
+          <p class="cost-note">${r.c.notes}</p>
+        </div>
+      </div>
+    `;
+  });
+  document.getElementById('rankList').innerHTML = html;
+
+  /* スタッフパネル */
+  const isStaff = new URLSearchParams(location.search).get('staff') === '1';
+  document.getElementById('staffPanel').style.display = isStaff ? 'block' : 'none';
+
+  /* 印刷用要素の表示制御 */
+  document.querySelectorAll('.print-only').forEach(el => el.style.display = 'block');
+}
+
+/* ---------- アコーディオン ---------- */
+function toggleAccord(id, chvId) {
+  const el  = document.getElementById(id);
+  const chv = document.getElementById(chvId);
+  const hdr = chv.closest('[role="button"]');
+  const isOpen = el.classList.toggle('open');
+  chv.classList.toggle('open', isOpen);
+  if (hdr) hdr.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+/* ---------- 入力に戻る ---------- */
+function goBack() {
+  document.getElementById('resultSection').style.display = 'none';
+  document.getElementById('inputSection').style.display  = 'block';
+  document.querySelectorAll('.print-only').forEach(el => el.style.display = 'none');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
