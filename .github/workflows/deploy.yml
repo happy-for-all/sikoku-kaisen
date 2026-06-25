@@ -1,0 +1,50 @@
+name: 四国回線シミュレーター 自動ビルド＆デプロイ
+
+on:
+  # 毎日 UTC 04:17（JST 13:17）に自動実行
+  schedule:
+    - cron: '17 4 * * *'
+
+  # GitHub画面から手動実行もできるようにする
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ① リポジトリをチェックアウト
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      # ② Python 3.11 をセットアップ
+      - name: Python 3.11 をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # ③ 依存パッケージをインストール
+      - name: 依存パッケージをインストール
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pandas
+
+      # ④ build.py を実行（SP監視・差分検知・dist/生成）
+      - name: build.py を実行
+        run: python build.py
+
+      # ⑤ Node.js 22 をセットアップ
+      - name: Node.js 22 をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # ⑥ Wrangler をインストール
+      - name: Wrangler をインストール
+        run: npm install -g wrangler
+
+      # ⑦ Cloudflare Workers へデプロイ
+      - name: Cloudflare Workers へデプロイ
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: wrangler deploy
