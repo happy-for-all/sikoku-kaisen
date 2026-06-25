@@ -1,11 +1,8 @@
-# ============================================================
-# 👑 wrangler.toml ― 四国回線提案シミュレーター
-# ============================================================
-
-name = "sikoku-kaisen"
-compatibility_date = "2026-06-25"
-
-[assets]
-directory = "./dist"
-html_handling = "auto-trailing-slash"
-not_found_handling = "single-page-application"
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sikoku-kaisen",
+  "compatibility_date": "2026-06-25",
+  "assets": {
+    "directory": "./dist"
+  }
+}
