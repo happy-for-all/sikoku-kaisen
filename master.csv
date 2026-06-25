@@ -1,0 +1,7 @@
+company_id,company_name,area_pref,type,monthly_fee_base,initial_fee,construction_fee,contract_term_months,cancellation_fee,docomo_discount_per_person,campaign_cashback,speed_mbps,discount_type,sp_url,is_manual,notes
+docomo,ドコモ光,徳島|香川|愛媛|高知,光回線,5720,3300,0,24,0,1100,0,1000,family,https://www.nttdocomo.co.jp/hikari/,true,光コラボ。解約金なし。
+picara,ピカラ光（STNet）,徳島|香川|愛媛|高知,光回線,5280,3300,19800,24,10000,0,20000,1000,none,https://www.stnet.co.jp/personal/,false,四国全域対応。高速光回線。
+flets,NTTフレッツ光,徳島|香川|愛媛|高知,光回線,6050,3300,19800,24,5000,0,0,1000,none,https://flets-w.com/,false,全国対応。
+au,auひかり,徳島|香川|愛媛|高知,光回線,5610,3300,24200,24,15000,0,30000,1000,none,https://www.au.com/internet/,false,auスマホ割あり。
+catv_kagawa,ケーブルメディア四国,香川,CATV,4950,5500,11000,12,5000,0,0,320,none,https://www.cavy.co.jp/,false,香川限定。最大320Mbps。
+catv_kochi,高知ケーブルテレビ（KCB）,高知,CATV,4620,5500,11000,12,5000,0,0,200,none,https://www.kcb.co.jp/,false,高知限定。最大200Mbps。
