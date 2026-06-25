@@ -2,12 +2,10 @@
 # 👑 wrangler.toml ― 四国回線提案シミュレーター
 # ============================================================
 
-# 👑 Workers名（CF ダッシュボードに表示される名前）
-#    例: sikoku-kaisen → https://sikoku-kaisen.cocoro.workers.dev
 name = "sikoku-kaisen"
-
 compatibility_date = "2026-06-25"
 
-# dist/ フォルダの中身をそのまま静的ホスティング
 [assets]
 directory = "./dist"
+html_handling = "auto-trailing-slash"
+not_found_handling = "single-page-application"
