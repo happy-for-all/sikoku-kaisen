@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>四国回線提案シミュレーター｜docomo光 乗り換えメリット比較</title>
-  <link rel="canonical" href="https://magocoro.pray-power-is-god-and-cocoro.com/sikoku-kaisen/">
+  <link rel="canonical" href="https://sikoku-kaisen.pray-power-is-god-and-cocoro.com/">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-9YTTCQ1ZX6"></script>
@@ -177,7 +177,6 @@
     .result-topbar h2 { font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
     .result-topbar h2 i { color: var(--docomo-red); font-size: 22px; }
 
-    /* PDF / Print Button */
     .print-btn {
       display: flex;
       align-items: center;
@@ -255,7 +254,6 @@
     .star-on { color: #e0a800; }
     .star-off { color: #ddd; }
 
-    /* Badges */
     .badge {
       font-size: 10px;
       padding: 2px 7px;
@@ -289,7 +287,24 @@
     .cost-table .total-row .val { font-weight: 700; font-size: 14px; }
     .cost-note { font-size: 11px; color: var(--gray-text); margin-top: 6px; line-height: 1.6; }
 
-    /* Chevron */
+    /* 👑 [追加] 参照URL表示 */
+    .sp-url-row {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--gray-border);
+      font-size: 11px;
+      color: var(--gray-text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .sp-url-row a {
+      color: #1565c0;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+
     .chevron { font-size: 18px; color: var(--gray-text); transition: transform 0.2s; flex-shrink: 0; }
     .chevron.open { transform: rotate(180deg); }
 
@@ -315,6 +330,66 @@
       margin-bottom: 6px;
     }
     .talk-examples { font-size: 12px; color: var(--gray-text); line-height: 1.9; margin-top: 8px; }
+
+    /* 👑 [追加] 価格変更確認アコーディオン */
+    .price-check-accordion {
+      margin-top: 14px;
+      border: 1px solid #ffe082;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .price-check-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: #fff8e1;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6d4c00;
+    }
+    .price-check-header:hover { background: #fff3cd; }
+    .price-check-body {
+      display: none;
+      padding: 10px 14px;
+      background: #fffbf0;
+    }
+    .price-check-body.open { display: block; }
+    .price-check-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid #ffe082;
+      font-size: 12px;
+    }
+    .price-check-row:last-child { border-bottom: none; }
+    .price-check-name { color: var(--text-main); font-weight: 500; flex: 1; }
+    .price-check-date { color: var(--gray-text); font-size: 11px; margin: 0 8px; }
+    .status-ok {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #e8f5e9; color: #2e7d32;
+      font-size: 11px; font-weight: 600;
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .status-warn {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #ffebee; color: #c62828;
+      font-size: 11px; font-weight: 600;
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .status-manual {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #f5f5f5; color: #666;
+      font-size: 11px; font-weight: 600;
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .price-check-msg {
+      font-size: 11px; color: #c62828;
+      margin-top: 3px; line-height: 1.5;
+    }
 
     /* ========== BACK BUTTON ========== */
     .back-btn {
@@ -344,10 +419,9 @@
       line-height: 1.8;
     }
 
-    /* ========== ADSENSE ========== */
     .adsense-container { text-align: center; margin: 30px 0; min-height: 100px; }
 
-    /* ========== PRINT STYLES ========== */
+    /* ========== PRINT ========== */
     @media print {
       .no-print { display: none !important; }
       body { background: #fff; font-size: 12px; }
@@ -384,7 +458,6 @@
   <!-- ===== INPUT SECTION ===== -->
   <section id="inputSection" aria-label="お客様情報入力">
 
-    <!-- お客様情報 -->
     <div class="card">
       <div class="section-title">
         <i class="ti ti-user" aria-hidden="true"></i>お客様情報
@@ -418,12 +491,10 @@
       </div>
     </div>
 
-    <!-- 現在の回線 -->
     <div class="card">
       <div class="section-title">
         <i class="ti ti-wifi" aria-hidden="true"></i>現在ご利用の回線
       </div>
-
       <div class="field-group" style="margin-bottom:10px;">
         <label for="currentLine">回線会社</label>
         <select id="currentLine" onchange="onLineChange()">
@@ -436,8 +507,6 @@
           <option value="other_catv">その他CATV（手入力）</option>
         </select>
       </div>
-
-      <!-- その他CATV 手入力 -->
       <div id="manualInputs" class="manual-box" style="display:none;">
         <div class="field-group" style="margin-bottom:8px;">
           <label for="catvName">CATV会社名（任意）</label>
@@ -454,14 +523,10 @@
           </div>
         </div>
       </div>
-
-      <!-- プリセット参考値 -->
       <div id="presetInfo" class="preset-info">
         <i class="ti ti-info-circle" aria-hidden="true"></i>
         <span id="presetText"></span>
       </div>
-
-      <!-- 月額・解約金（共通） -->
       <div class="field-row" style="margin-top:10px;">
         <div class="field-group">
           <label for="currentMonthly">現在の月額料金（円）</label>
@@ -474,7 +539,6 @@
       </div>
     </div>
 
-    <!-- 比較期間 -->
     <div class="card">
       <div class="section-title">
         <i class="ti ti-calendar" aria-hidden="true"></i>比較期間
@@ -489,7 +553,6 @@
       <i class="ti ti-calculator" aria-hidden="true"></i>実質料金を計算する
     </button>
 
-    <!-- AdSense（コメントアウト：本番運用時に外す） -->
     <!--
     <div class="adsense-container">
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2908004621823900" crossorigin="anonymous"></script>
@@ -515,30 +578,33 @@
       </button>
     </div>
 
-    <!-- 印刷時ヘッダー -->
     <div class="print-only" style="display:none; margin-bottom:12px;">
       <h2 style="font-size:16px; color:var(--docomo-red);">四国回線提案シミュレーター　比較結果</h2>
     </div>
 
-    <!-- 営業トーク -->
     <div id="talkBox" class="talk-box"></div>
-
-    <!-- ランキングリスト -->
     <div id="rankList"></div>
 
-    <!-- スタッフパネル（?staff=1 のみ表示） -->
+    <!-- ===== スタッフパネル（?staff=1 のみ表示） ===== -->
     <div id="staffPanel" class="staff-panel no-print">
       <div class="section-title">
         <i class="ti ti-tools" aria-hidden="true"></i>スタッフモード
       </div>
-      <div class="alert-badge-staff">
-        <i class="ti ti-alert-triangle" aria-hidden="true"></i>手動確認が必要な会社があります
+
+      <!-- 👑 [追加] 価格変更確認アコーディオン -->
+      <div class="price-check-accordion">
+        <div class="price-check-header" onclick="togglePriceCheck()" id="priceCheckHeader">
+          <span><i class="ti ti-refresh" style="margin-right:5px;" aria-hidden="true"></i>価格変更確認（最終WF実行結果）</span>
+          <i class="ti ti-chevron-down chevron" id="priceCheckChv" aria-hidden="true"></i>
+        </div>
+        <div class="price-check-body" id="priceCheckBody">
+          <div id="priceCheckList" style="color:var(--gray-text);font-size:12px;">読み込み中...</div>
+          <div id="builtAt" style="font-size:11px;color:var(--gray-text);margin-top:10px;text-align:right;"></div>
+        </div>
       </div>
-      <div class="alert-item">
-        <p>・ピカラ光：キャンペーンページに変化を検知（2026-06-25）。CSVの確認を推奨。</p>
-        <p>・NTTフレッツ光：robots.txt によりSP不可。手動確認が必要です。</p>
-      </div>
-      <div class="talk-examples">
+
+      <!-- 切り返しトーク例 -->
+      <div class="talk-examples" style="margin-top:14px;">
         <strong>切り返しトーク例</strong><br>
         「速度が遅くなるのでは？」→「docomo光は最大1Gbps。現在のCATVより高速です。」<br>
         「サポートが心配」→「ドコモショップで直接サポート対応いたします。」<br>
@@ -555,7 +621,7 @@
 
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer no-print">
-  <p>※ 本ツールの料金はダミーデータです。最新料金は各社公式サイトをご確認ください。</p>
+  <p>※ 本ツールの料金は master.csv の値を使用しています。最新料金は各社公式サイトをご確認ください。</p>
   <p style="margin-top:4px;">四国回線提案シミュレーター &copy; 2026</p>
 </footer>
 
@@ -566,48 +632,55 @@
 /* ---------- 定数 ---------- */
 const PERIOD = { val: 24 };
 
+// 👑 [追加] sp_url を各社に追加
 const COMPANIES = [
   {
     id: 'docomo', name: 'ドコモ光',
     monthly: 5720, initial: 3300, construction: 0,
     term: 24, cancel: 0,
     discount_pp: 1100, cashback: 0,
-    speed: 1000, notes: '光コラボ。解約金なし。', is_manual: true
+    speed: 1000, notes: '光コラボ。解約金なし。', is_manual: true,
+    sp_url: 'https://www.nttdocomo.co.jp/hikari/'
   },
   {
     id: 'picara', name: 'ピカラ光（STNet）',
     monthly: 5280, initial: 3300, construction: 19800,
     term: 24, cancel: 10000,
     discount_pp: 0, cashback: 20000,
-    speed: 1000, notes: '四国全域対応。高速光回線。', is_manual: false
+    speed: 1000, notes: '四国全域対応。高速光回線。', is_manual: false,
+    sp_url: 'https://www.stnet.co.jp/personal/'
   },
   {
     id: 'flets', name: 'NTTフレッツ光',
     monthly: 6050, initial: 3300, construction: 19800,
     term: 24, cancel: 5000,
     discount_pp: 0, cashback: 0,
-    speed: 1000, notes: '全国対応。robots.txt によりSP監視不可。手動確認が必要です。', is_manual: true
+    speed: 1000, notes: '全国対応。robots.txt によりSP監視不可。手動確認が必要です。', is_manual: true,
+    sp_url: 'https://flets-w.com/'
   },
   {
     id: 'au', name: 'auひかり',
     monthly: 5610, initial: 3300, construction: 24200,
     term: 24, cancel: 15000,
     discount_pp: 0, cashback: 30000,
-    speed: 1000, notes: 'auスマホ割あり。', is_manual: false
+    speed: 1000, notes: 'auスマホ割あり。', is_manual: false,
+    sp_url: 'https://www.au.com/internet/'
   },
   {
     id: 'catv_kagawa', name: 'ケーブルメディア四国',
     monthly: 4950, initial: 5500, construction: 11000,
     term: 12, cancel: 5000,
     discount_pp: 0, cashback: 0,
-    speed: 320, notes: '香川限定。最大320Mbps。', is_manual: false
+    speed: 320, notes: '香川限定。最大320Mbps。', is_manual: false,
+    sp_url: 'https://www.cavy.co.jp/'
   },
   {
     id: 'catv_kochi', name: '高知ケーブルテレビ（KCB）',
     monthly: 4620, initial: 5500, construction: 11000,
     term: 12, cancel: 5000,
     discount_pp: 0, cashback: 0,
-    speed: 200, notes: '高知限定。最大200Mbps。', is_manual: false
+    speed: 200, notes: '高知限定。最大200Mbps。', is_manual: false,
+    sp_url: 'https://www.kcb.co.jp/'
   }
 ];
 
@@ -618,6 +691,78 @@ const PRESETS = {
   catv_kagawa: { monthly: 4950,  cancel:  5000, hint: 'ケーブルメディア四国の参考値：月額4,950円・解約金5,000円' },
   catv_kochi:  { monthly: 4620,  cancel:  5000, hint: '高知ケーブルテレビの参考値：月額4,620円・解約金5,000円' }
 };
+
+/* ---------- 👑 [追加] data.json 読み込み・価格変更確認 ---------- */
+let dataJson = null;
+
+async function loadDataJson() {
+  try {
+    const res = await fetch('./data.json');
+    if (!res.ok) throw new Error('fetch失敗');
+    dataJson = await res.json();
+    renderPriceCheck();
+  } catch(e) {
+    document.getElementById('priceCheckList').textContent = 'data.json の読み込みに失敗しました。';
+  }
+}
+
+function renderPriceCheck() {
+  if (!dataJson) return;
+
+  const changeLog  = dataJson.change_log  || [];
+  const companies  = dataJson.companies   || COMPANIES;
+  const builtAt    = dataJson.built_at    || '不明';
+
+  // 変化ありの会社名セットを作る
+  const warnSet = new Set(changeLog.map(l => l.company));
+
+  let html = '';
+  companies.forEach(c => {
+    const name     = c.name || c.company_name || '';
+    const isManual = c.is_manual || false;
+    const spUrl    = c.sp_url || '';
+
+    let statusHtml = '';
+    let msgHtml    = '';
+
+    if (isManual) {
+      statusHtml = `<span class="status-manual"><i class="ti ti-pencil" aria-hidden="true"></i>手動管理</span>`;
+    } else if (warnSet.has(name)) {
+      statusHtml = `<span class="status-warn"><i class="ti ti-alert-triangle" aria-hidden="true"></i>変化あり</span>`;
+      const log = changeLog.find(l => l.company === name);
+      if (log) msgHtml = `<div class="price-check-msg">⚠ ${log.message}（${log.date}）</div>`;
+    } else {
+      statusHtml = `<span class="status-ok"><i class="ti ti-check" aria-hidden="true"></i>変化なし</span>`;
+    }
+
+    const urlHtml = spUrl
+      ? `<div style="font-size:11px;color:var(--gray-text);margin-top:2px;">
+           <i class="ti ti-link" aria-hidden="true"></i>
+           <a href="${spUrl}" target="_blank" rel="noopener noreferrer">${spUrl}</a>
+         </div>`
+      : '';
+
+    html += `
+      <div class="price-check-row" style="flex-direction:column;align-items:flex-start;">
+        <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+          <span class="price-check-name">${name}</span>
+          ${statusHtml}
+        </div>
+        ${urlHtml}
+        ${msgHtml}
+      </div>`;
+  });
+
+  document.getElementById('priceCheckList').innerHTML = html;
+  document.getElementById('builtAt').textContent = `最終WF実行: ${builtAt}`;
+}
+
+function togglePriceCheck() {
+  const body = document.getElementById('priceCheckBody');
+  const chv  = document.getElementById('priceCheckChv');
+  const isOpen = body.classList.toggle('open');
+  chv.classList.toggle('open', isOpen);
+}
 
 /* ---------- 期間切り替え ---------- */
 function setPeriod(n) {
@@ -653,30 +798,21 @@ function calcReal(c, people, period, otherCancel) {
   const gross  = c.initial + c.construction + c.monthly * period + otherCancel;
   const deduct = c.cashback + c.discount_pp * people * period;
   const total  = Math.max(gross - deduct, 0);
-  return {
-    total,
-    monthly: Math.round(total / period),
-    gross,
-    deduct,
-    familyDisc: c.discount_pp * people * period,
-    c
-  };
+  return { total, monthly: Math.round(total / period), gross, deduct, familyDisc: c.discount_pp * people * period, c };
 }
 
 /* ---------- 星マーク ---------- */
 function starsHtml(score) {
   let s = '';
-  for (let i = 1; i <= 5; i++) {
-    s += `<span class="${i <= score ? 'star-on' : 'star-off'}">★</span>`;
-  }
+  for (let i = 1; i <= 5; i++) s += `<span class="${i <= score ? 'star-on' : 'star-off'}">★</span>`;
   return s;
 }
 
 /* ---------- メイン計算 ---------- */
 function calcAll() {
-  const pref          = document.getElementById('pref').value;
-  const people        = parseInt(document.getElementById('people').value) || 3;
-  const period        = PERIOD.val;
+  const pref           = document.getElementById('pref').value;
+  const people         = parseInt(document.getElementById('people').value) || 3;
+  const period         = PERIOD.val;
   const currentMonthly = parseInt(document.getElementById('currentMonthly').value) || 0;
   const currentCancel  = parseInt(document.getElementById('currentCancel').value) || 0;
   const lineVal        = document.getElementById('currentLine').value;
@@ -684,20 +820,17 @@ function calcAll() {
   if (!pref)    { alert('お住まいの県を選択してください。'); return; }
   if (!lineVal) { alert('現在の回線を選択してください。'); return; }
 
-  /* その他CATV の追加 */
   let companies = JSON.parse(JSON.stringify(COMPANIES));
   if (lineVal === 'other_catv') {
     const nm = document.getElementById('catvName').value.trim() || 'その他CATV';
     companies.push({
       id: 'other_catv', name: nm,
       monthly: currentMonthly, initial: 5000, construction: 11000,
-      term: period, cancel: 0,
-      discount_pp: 0, cashback: 0,
-      speed: 200, notes: '手入力値。', is_manual: true
+      term: period, cancel: 0, discount_pp: 0, cashback: 0,
+      speed: 200, notes: '手入力値。', is_manual: true, sp_url: ''
     });
   }
 
-  /* 計算 */
   const docomoData   = companies.find(c => c.id === 'docomo');
   const docomoResult = calcReal(docomoData, people, period, currentCancel);
 
@@ -707,28 +840,24 @@ function calcAll() {
     isDocomo:  c.id === 'docomo'
   })).sort((a, b) => a.monthly - b.monthly);
 
-  /* 画面切り替え */
   document.getElementById('inputSection').style.display  = 'none';
   document.getElementById('resultSection').style.display = 'block';
 
-  /* 営業トーク */
   const famDisc = 1100 * people * period;
-  const talkHtml = `
+  document.getElementById('talkBox').innerHTML = `
     <div class="talk-label"><i class="ti ti-speakerphone" aria-hidden="true"></i>おすすめ営業トーク</div>
     ご家族<strong>${people}名様</strong>のdocomo光セット割で、毎月<strong>${(1100 * people).toLocaleString()}円</strong>のスマホ料金割引！
     ${period}ヶ月で合計<strong>${famDisc.toLocaleString()}円</strong>お得です。
     実質月額は<strong>${docomoResult.monthly.toLocaleString()}円/月</strong>で、工事費・解約金込みのトータルでもNo.1のお得さです！
   `;
-  document.getElementById('talkBox').innerHTML = talkHtml;
 
-  /* ランキング生成 */
   let html = '';
   results.forEach((r, i) => {
-    const rank      = i + 1;
+    const rank       = i + 1;
     const badgeClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-other';
-    const isDoc     = r.isDocomo;
-    const diff      = r.monthly - docomoResult.monthly;
-    const starScore = isDoc ? 5 : Math.max(1, Math.min(4, Math.round(4 - diff / 500)));
+    const isDoc      = r.isDocomo;
+    const diff       = r.monthly - docomoResult.monthly;
+    const starScore  = isDoc ? 5 : Math.max(1, Math.min(4, Math.round(4 - diff / 500)));
 
     let diffBadge = '';
     if (!isDoc) {
@@ -737,8 +866,17 @@ function calcAll() {
       else               diffBadge = `<span class="badge badge-same">同額</span>`;
     }
 
-    const recoBadge    = isDoc    ? '<span class="badge badge-recommend">おすすめ</span>' : '';
-    const currentBadge = r.isCurrent ? '<span class="badge badge-current">現在ご利用中</span>' : '';
+    const recoBadge    = isDoc        ? '<span class="badge badge-recommend">おすすめ</span>' : '';
+    const currentBadge = r.isCurrent  ? '<span class="badge badge-current">現在ご利用中</span>' : '';
+
+    // 👑 [追加] 参照URL表示
+    const spUrlHtml = r.c.sp_url
+      ? `<div class="sp-url-row">
+           <i class="ti ti-link" aria-hidden="true"></i>
+           <span>参照サイト：</span>
+           <a href="${r.c.sp_url}" target="_blank" rel="noopener noreferrer">${r.c.sp_url}</a>
+         </div>`
+      : '';
 
     html += `
       <div class="rank-card ${isDoc ? 'docomo-highlight' : ''}">
@@ -762,20 +900,20 @@ function calcAll() {
             <tr><td class="lbl saving">キャンペーン還元</td><td class="val saving">△${r.c.cashback.toLocaleString()}円</td></tr>
             <tr><td class="lbl saving">docomo家族割 × ${people}名 × ${period}ヶ月</td><td class="val saving">△${r.familyDisc.toLocaleString()}円</td></tr>
             <tr class="sep-row total-row"><td class="lbl">実質トータルコスト</td><td class="val">${r.total.toLocaleString()}円</td></tr>
-            <tr><td class="lbl" style="font-size:14px;font-weight:700;">実質月額</td><td class="val" style="font-size:16px;color:var(--docomo-red);">${r.monthly.toLocaleString()}円/月</td></tr>
+            <tr><td class="lbl" style="font-size:14px;font-weight:700;">実質月額</td>
+                <td class="val" style="font-size:16px;color:var(--docomo-red);">${r.monthly.toLocaleString()}円/月</td></tr>
           </table>
           <p class="cost-note">${r.c.notes}</p>
+          ${spUrlHtml}
         </div>
       </div>
     `;
   });
   document.getElementById('rankList').innerHTML = html;
 
-  /* スタッフパネル */
   const isStaff = new URLSearchParams(location.search).get('staff') === '1';
   document.getElementById('staffPanel').style.display = isStaff ? 'block' : 'none';
 
-  /* 印刷用要素の表示制御 */
   document.querySelectorAll('.print-only').forEach(el => el.style.display = 'block');
 }
 
@@ -796,6 +934,11 @@ function goBack() {
   document.querySelectorAll('.print-only').forEach(el => el.style.display = 'none');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+/* ---------- 初期化 ---------- */
+window.addEventListener('DOMContentLoaded', () => {
+  loadDataJson();
+});
 </script>
 
 </body>
