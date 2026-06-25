@@ -3,6 +3,6 @@
   "name": "sikoku-kaisen",
   "compatibility_date": "2026-06-25",
   "assets": {
-    "directory": "./dist/sikoku-kaisen"
+    "directory": "./dist"
   }
 }
