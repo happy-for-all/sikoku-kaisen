@@ -2,8 +2,10 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="docomo好きの、docomo好きによる、docomo好きのための比較検索サイトです！四国（徳島・香川・愛媛・高知）の光回線・CATV各社とdocomo光を工事費・解約金・家族割込みの実質料金でシミュレーション比較。">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📶%3C/text%3E%3C/svg%3E">
   <title>四国回線提案シミュレーター｜docomo光 乗り換えメリット比較</title>
   <link rel="canonical" href="https://sikoku-kaisen.pray-power-is-god-and-cocoro.com/">
@@ -288,7 +290,7 @@
     .cost-table .total-row .val { font-weight: 700; font-size: 14px; }
     .cost-note { font-size: 11px; color: var(--gray-text); margin-top: 6px; line-height: 1.6; }
 
-    /* 👑 [追加] 参照URL表示 */
+    /* 👑 参照URL表示 */
     .sp-url-row {
       margin-top: 8px;
       padding-top: 8px;
@@ -332,7 +334,7 @@
     }
     .talk-examples { font-size: 12px; color: var(--gray-text); line-height: 1.9; margin-top: 8px; }
 
-    /* 👑 [追加] 価格変更確認アコーディオン */
+    /* 👑 価格変更確認アコーディオン */
     .price-check-accordion {
       margin-top: 14px;
       border: 1px solid #ffe082;
@@ -434,6 +436,72 @@
       .talk-box { border-left: 3px solid var(--docomo-red); }
     }
 
+    /* ========== 👑 [追加] CATCH COPY ========== */
+    .catch-copy {
+      background: linear-gradient(135deg, var(--docomo-red) 0%, var(--docomo-dark) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      line-height: 1.6;
+    }
+    .catch-copy span {
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      opacity: 0.9;
+      margin-top: 3px;
+    }
+
+    /* ========== 👑 [追加] SEO ACCORDION ========== */
+    .seo-accordion {
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .seo-accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--docomo-red);
+      background: #fff5f5;
+    }
+    .seo-accordion-header:hover { background: #ffebee; }
+    .seo-accordion-body {
+      display: none;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.9;
+      color: var(--text-main);
+      border-top: 1px solid var(--gray-border);
+    }
+    .seo-accordion-body.open { display: block; }
+    .seo-accordion-body h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--docomo-red);
+      margin: 14px 0 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .seo-accordion-body h2:first-child { margin-top: 0; }
+    .seo-accordion-body p { margin-bottom: 8px; }
+    .seo-accordion-body ul {
+      padding-left: 18px;
+      margin-bottom: 8px;
+    }
+    .seo-accordion-body ul li { margin-bottom: 4px; }
+    .seo-accordion-body strong { color: var(--docomo-red); }
+
     /* ========== RESPONSIVE ========== */
     @media (max-width: 480px) {
       .field-row { grid-template-columns: 1fr; }
@@ -453,11 +521,75 @@
   </div>
 </header>
 
+<!-- ===== 👑 [追加] CATCH COPY ===== -->
+<div class="catch-copy no-print">
+  docomo好きの、docomo好きによる、docomo好きのための比較検索サイトです！
+  <span>四国エリア（徳島・香川・愛媛・高知）の光回線・CATV各社と docomo光を実質料金で比較します</span>
+</div>
+
 <!-- ===== MAIN ===== -->
 <main class="wrap">
 
   <!-- ===== INPUT SECTION ===== -->
   <section id="inputSection" aria-label="お客様情報入力">
+
+    <!-- ===== 👑 [追加] SEO アコーディオン ===== -->
+    <div class="seo-accordion no-print">
+      <div class="seo-accordion-header" onclick="toggleSeoAccord()" id="seoAccordHeader">
+        <span><i class="ti ti-info-circle" style="margin-right:6px;" aria-hidden="true"></i>docomo光への乗り換えを検討中の方へ</span>
+        <i class="ti ti-chevron-down chevron" id="seoAccordChv" aria-hidden="true"></i>
+      </div>
+      <div class="seo-accordion-body" id="seoAccordBody">
+
+        <h2>📶 docomo光とは？四国エリアの方にこそおすすめの光回線</h2>
+        <p>
+          <strong>docomo光</strong>は、NTTドコモが提供する光コラボレーションサービスです。
+          NTTの光回線をそのまま使いながら、ドコモのスマートフォンとセットにすることで
+          <strong>毎月最大1,100円×家族人数分のスマホ料金が割引</strong>になります。
+          四国（徳島・香川・愛媛・高知）全域で利用可能です。
+        </p>
+
+        <h2>💡 このシミュレーターでわかること</h2>
+        <ul>
+          <li>現在ご利用の回線（ピカラ光・フレッツ光・auひかり・CATV等）との<strong>実質月額の差額</strong></li>
+          <li>工事費・初期費用・解約金・キャッシュバックをすべて含めた<strong>トータルコスト比較</strong></li>
+          <li>家族人数に応じた<strong>docomo家族割の節約額</strong>（24ヶ月・36ヶ月で試算）</li>
+          <li>乗り換え時に損をしないための<strong>解約金・違約金の確認</strong></li>
+        </ul>
+
+        <h2>🏆 docomo光が選ばれる理由（四国エリア）</h2>
+        <ul>
+          <li><strong>解約金0円</strong>：2年定額プランは更新月に解約すれば違約金なし</li>
+          <li><strong>工事費実質無料</strong>：dポイント還元により実質0円で開通可能</li>
+          <li><strong>最大通信速度1Gbps</strong>：動画・テレワーク・オンラインゲームも快適</li>
+          <li><strong>ドコモショップで直接サポート</strong>：四国各地のドコモショップで対応</li>
+          <li><strong>家族が多いほどお得</strong>：家族4名なら毎月4,400円・24ヶ月で最大105,600円節約</li>
+        </ul>
+
+        <h2>📊 四国の主要回線との比較ポイント</h2>
+        <ul>
+          <li><strong>ピカラ光との比較</strong>：ピカラ光はSTNet提供の四国専用光回線。docomo光はdocomo家族割が加わる分、複数回線利用者にお得</li>
+          <li><strong>フレッツ光との比較</strong>：フレッツ光はプロバイダ料金が別途必要。docomo光はプロバイダ込みで比較するとお得なケースが多い</li>
+          <li><strong>auひかりとの比較</strong>：auひかりは工事費が高め（約49,000円）。docomo光は工事費実質無料のため初期コストが低い</li>
+          <li><strong>CATV（ケーブルテレビ）との比較</strong>：CATVはテレビとのセット割が魅力だが、インターネット単体ではdocomo光が有利なケースが多い</li>
+        </ul>
+
+        <h2>🔍 よくある質問</h2>
+        <ul>
+          <li><strong>Q. 工事は必要ですか？</strong><br>
+          A. 既にNTTの光回線（フレッツ光等）をご利用の場合、工事不要で乗り換えできるケースがあります。</li>
+          <li><strong>Q. 今の回線の解約金が心配です</strong><br>
+          A. このシミュレーターで解約金を含めたトータルコストを計算できます。解約金を払っても乗り換えた方がお得なケースも多くあります。</li>
+          <li><strong>Q. docomo以外のスマホでも使えますか？</strong><br>
+          A. 使えます。ただし家族割（毎月1,100円割引）はdocomoスマホ契約者のみ対象です。</li>
+        </ul>
+
+        <p style="font-size:11px;color:var(--gray-text);margin-top:8px;">
+          ※ 本サイトの料金データは定期的に更新していますが、最新料金は各社公式サイトでご確認ください。<br>
+          ※ このシミュレーターはdocomoショップの利用許可を得た上で公開している業務支援ツールです。
+        </p>
+      </div>
+    </div>
 
     <div class="card">
       <div class="section-title">
@@ -592,7 +724,7 @@
         <i class="ti ti-tools" aria-hidden="true"></i>スタッフモード
       </div>
 
-      <!-- 👑 [追加] 価格変更確認アコーディオン -->
+      <!-- 👑 価格変更確認アコーディオン -->
       <div class="price-check-accordion">
         <div class="price-check-header" onclick="togglePriceCheck()" id="priceCheckHeader">
           <span><i class="ti ti-refresh" style="margin-right:5px;" aria-hidden="true"></i>価格変更確認（最終WF実行結果）</span>
@@ -633,7 +765,7 @@
 /* ---------- 定数 ---------- */
 const PERIOD = { val: 24 };
 
-// 👑 [追加] sp_url を各社に追加
+// 👑 sp_url を各社に追加
 const COMPANIES = [
   {
     id: 'docomo', name: 'ドコモ光',
@@ -693,7 +825,7 @@ const PRESETS = {
   catv_kochi:  { monthly: 4620,  cancel:  5000, hint: '高知ケーブルテレビの参考値：月額4,620円・解約金5,000円' }
 };
 
-/* ---------- 👑 [追加] data.json 読み込み・価格変更確認 ---------- */
+/* ---------- data.json 読み込み・価格変更確認 ---------- */
 let dataJson = null;
 
 async function loadDataJson() {
@@ -714,7 +846,6 @@ function renderPriceCheck() {
   const companies  = dataJson.companies   || COMPANIES;
   const builtAt    = dataJson.built_at    || '不明';
 
-  // 変化ありの会社名セットを作る
   const warnSet = new Set(changeLog.map(l => l.company));
 
   let html = '';
@@ -762,6 +893,14 @@ function togglePriceCheck() {
   const body = document.getElementById('priceCheckBody');
   const chv  = document.getElementById('priceCheckChv');
   const isOpen = body.classList.toggle('open');
+  chv.classList.toggle('open', isOpen);
+}
+
+/* ---------- 👑 [追加] SEO アコーディオン ---------- */
+function toggleSeoAccord() {
+  const el  = document.getElementById('seoAccordBody');
+  const chv = document.getElementById('seoAccordChv');
+  const isOpen = el.classList.toggle('open');
   chv.classList.toggle('open', isOpen);
 }
 
@@ -846,7 +985,7 @@ function calcAll() {
 
   const famDisc = 1100 * people * period;
   document.getElementById('talkBox').innerHTML = `
-    <div class="talk-label"><i class="ti ti-speakerphone" aria-hidden="true"></i>おすすめ営業トーク</div>
+    <div class="talk-label"><i class="ti ti-speakerphone" aria-hidden="true"></i>こんなにもオススメ！</div>
     ご家族<strong>${people}名様</strong>のdocomo光セット割で、毎月<strong>${(1100 * people).toLocaleString()}円</strong>のスマホ料金割引！
     ${period}ヶ月で合計<strong>${famDisc.toLocaleString()}円</strong>お得です。
     実質月額は<strong>${docomoResult.monthly.toLocaleString()}円/月</strong>で、工事費・解約金込みのトータルでもNo.1のお得さです！
@@ -870,7 +1009,7 @@ function calcAll() {
     const recoBadge    = isDoc        ? '<span class="badge badge-recommend">おすすめ</span>' : '';
     const currentBadge = r.isCurrent  ? '<span class="badge badge-current">現在ご利用中</span>' : '';
 
-    // 👑 [追加] 参照URL表示
+    // 👑 参照URL表示
     const spUrlHtml = r.c.sp_url
       ? `<div class="sp-url-row">
            <i class="ti ti-link" aria-hidden="true"></i>
