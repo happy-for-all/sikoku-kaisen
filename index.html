@@ -984,10 +984,20 @@ function calcAll() {
   document.getElementById('resultSection').style.display = 'block';
 
   const famDisc = 1100 * people * period;
+  
+  // ▼ 追加：現在選択中の回線との差額を計算
+  const currentResult = results.find(r => r.isCurrent);
+  const monthGap  = currentResult ? currentResult.monthly - docomoResult.monthly : 0;
+  const yearGap   = monthGap * 12;
+  // ▲ 追加ここまで
+
   document.getElementById('talkBox').innerHTML = `
     <div class="talk-label"><i class="ti ti-speakerphone" aria-hidden="true"></i>こんなにもオススメ！</div>
     ご家族<strong>${people}名様</strong>のdocomo光セット割で、毎月<strong>${(1100 * people).toLocaleString()}円</strong>のスマホ料金割引！
-    ${period}ヶ月で合計<strong>${famDisc.toLocaleString()}円</strong>お得です。
+    ${period}ヶ月で合計<strong>${famDisc.toLocaleString()}円</strong>お得です。<br>
+    ${currentResult && monthGap > 0
+      ? `現在の回線より月額<strong style="color:var(--docomo-red);">${monthGap.toLocaleString()}円お得</strong>で、年間では<strong style="color:var(--docomo-red);">${yearGap.toLocaleString()}円</strong>の差になります！<br>`
+      : ''}
     実質月額は<strong>${docomoResult.monthly.toLocaleString()}円/月</strong>で、工事費・解約金込みのトータルでもNo.1のお得さです！
   `;
 
@@ -1040,9 +1050,35 @@ function calcAll() {
             <tr><td class="lbl saving">キャンペーン還元</td><td class="val saving">△${r.c.cashback.toLocaleString()}円</td></tr>
             <tr><td class="lbl saving">docomo家族割 × ${people}名 × ${period}ヶ月</td><td class="val saving">△${r.familyDisc.toLocaleString()}円</td></tr>
             <tr class="sep-row total-row"><td class="lbl">実質トータルコスト</td><td class="val">${r.total.toLocaleString()}円</td></tr>
-            <tr><td class="lbl" style="font-size:14px;font-weight:700;">実質月額</td>
-                <td class="val" style="font-size:16px;color:var(--docomo-red);">${r.monthly.toLocaleString()}円/月</td></tr>
-          </table>
+          <tr><td class="lbl" style="font-size:14px;font-weight:700;">実質月額</td>
+              <td class="val" style="font-size:16px;color:var(--docomo-red);">${r.monthly.toLocaleString()}円/月</td></tr>
+          
+          <!-- ▼ 追加：月額差額＆年間差額 -->
+          ${!isDoc ? (() => {
+            const monthDiff = r.monthly - docomoResult.monthly;
+            const yearDiff  = monthDiff * 12;
+            let diffColor, sign;
+            if (monthDiff > 0) {
+              diffColor = '#c62828'; sign = '+'; // docomoの方が安い（相手が高い）
+            } else if (monthDiff < 0) {
+              diffColor = '#2e7d32'; sign = '';  // 相手の方が安い
+            } else {
+              diffColor = 'var(--gray-text)'; sign = '±'; // 同額
+            }
+            return `
+          <tr class="sep-row">
+            <td class="lbl" style="color:${diffColor};font-weight:600;">docomo光との月額差</td>
+            <td class="val" style="color:${diffColor};font-weight:700;">${sign}${monthDiff.toLocaleString()}円/月</td>
+          </tr>
+          <tr>
+            <td class="lbl" style="color:${diffColor};font-weight:600;">年間（12ヶ月）での差額</td>
+            <td class="val" style="color:${diffColor};font-weight:700;">${sign}${yearDiff.toLocaleString()}円/年</td>
+          </tr>`;
+          })() : ''}
+          <!-- ▲ 追加ここまで -->
+
+              </table>
+          
           <p class="cost-note">${r.c.notes}</p>
           ${spUrlHtml}
         </div>
