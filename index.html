@@ -1019,7 +1019,11 @@ function calcAll() {
     });
   }
 
-  const docomoData   = companies.find(c => c.id === 'docomo');
+  const docomoData = companies.find(c => c.id === 'docomo');
+  if (!docomoData) {
+    alert('データの読み込みに失敗しました。ページを再読み込みしてください。');
+    return;
+  }
   const docomoResult = calcReal(docomoData, people, period, currentCancel);
 
   const results = companies.map(c => ({
