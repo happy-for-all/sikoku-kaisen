@@ -256,7 +256,7 @@ def build():
     with open(os.path.join(DIST_DIR, DATA_JSON), 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-print(f'[build] {DATA_JSON} 出力完了')
+    print(f'[build] {DATA_JSON} 出力完了')
     manual_required = [c['name'] for c in companies if c.get('is_manual_required')]
     if manual_required:
         print(f'[build] ⚠ 手動確認推奨: {", ".join(manual_required)}')
