@@ -765,18 +765,20 @@
 /* ---------- 定数 ---------- */
 const PERIOD = { val: 24 };
 
-// 👑 sp_url を各社に追加
+// 👑 area_pref 追加、金額修正
 const COMPANIES = [
   {
     id: 'docomo', name: 'ドコモ光',
-    monthly: 5720, initial: 3300, construction: 0,
+    area_pref: ['徳島','香川','愛媛','高知'],
+    monthly: 5720, initial: 4950, construction: 0,
     term: 24, cancel: 0,
-    discount_pp: 1100, cashback: 0,
+    discount_pp: 1210, cashback: 0,
     speed: 1000, notes: '光コラボ。解約金なし。', is_manual: true,
-    sp_url: 'https://www.nttdocomo.co.jp/hikari/'
+    sp_url: 'https://www.nttdocomo.co.jp/internet/hikari/charge/'
   },
   {
     id: 'picara', name: 'ピカラ光（STNet）',
+    area_pref: ['徳島','香川','愛媛','高知'],
     monthly: 5280, initial: 3300, construction: 19800,
     term: 24, cancel: 10000,
     discount_pp: 0, cashback: 20000,
@@ -785,6 +787,7 @@ const COMPANIES = [
   },
   {
     id: 'flets', name: 'NTTフレッツ光',
+    area_pref: ['徳島','香川','愛媛','高知'],
     monthly: 6050, initial: 3300, construction: 19800,
     term: 24, cancel: 5000,
     discount_pp: 0, cashback: 0,
@@ -793,6 +796,7 @@ const COMPANIES = [
   },
   {
     id: 'au', name: 'auひかり',
+    area_pref: ['徳島','香川','愛媛','高知'],
     monthly: 5610, initial: 3300, construction: 24200,
     term: 24, cancel: 15000,
     discount_pp: 0, cashback: 30000,
@@ -801,14 +805,16 @@ const COMPANIES = [
   },
   {
     id: 'catv_kagawa', name: 'ケーブルメディア四国',
+    area_pref: ['香川'],
     monthly: 4950, initial: 5500, construction: 11000,
-    term: 12, cancel: 5000,
+    term: 12, cancel: 11000,
     discount_pp: 0, cashback: 0,
     speed: 320, notes: '香川限定。最大320Mbps。', is_manual: false,
     sp_url: 'https://www.cavy.co.jp/'
   },
   {
     id: 'catv_kochi', name: '高知ケーブルテレビ（KCB）',
+    area_pref: ['高知'],
     monthly: 4620, initial: 5500, construction: 11000,
     term: 12, cancel: 5000,
     discount_pp: 0, cashback: 0,
@@ -821,7 +827,7 @@ const PRESETS = {
   picara:      { monthly: 5280,  cancel: 10000, hint: 'ピカラ光の参考値：月額5,280円・解約金10,000円' },
   flets:       { monthly: 6050,  cancel:  5000, hint: 'NTTフレッツ光の参考値：月額6,050円・解約金5,000円' },
   au:          { monthly: 5610,  cancel: 15000, hint: 'auひかりの参考値：月額5,610円・解約金15,000円' },
-  catv_kagawa: { monthly: 4950,  cancel:  5000, hint: 'ケーブルメディア四国の参考値：月額4,950円・解約金5,000円' },
+  catv_kagawa: { monthly: 4950,  cancel: 11000, hint: 'ケーブルメディア四国の参考値：月額4,950円・解約金11,000円' },
   catv_kochi:  { monthly: 4620,  cancel:  5000, hint: '高知ケーブルテレビの参考値：月額4,620円・解約金5,000円' }
 };
 
@@ -896,7 +902,7 @@ function togglePriceCheck() {
   chv.classList.toggle('open', isOpen);
 }
 
-/* ---------- 👑 [追加] SEO アコーディオン ---------- */
+/* ---------- SEO アコーディオン ---------- */
 function toggleSeoAccord() {
   const el  = document.getElementById('seoAccordBody');
   const chv = document.getElementById('seoAccordChv');
@@ -960,7 +966,13 @@ function calcAll() {
   if (!pref)    { alert('お住まいの県を選択してください。'); return; }
   if (!lineVal) { alert('現在の回線を選択してください。'); return; }
 
-  let companies = JSON.parse(JSON.stringify(COMPANIES));
+  // 👑 選択県でフィルタリング（ただし、現在利用中の回線として選ばれたものは非表示にしない安全対策）
+  let companies = JSON.parse(JSON.stringify(COMPANIES)).filter(c => {
+    if (!c.area_pref || c.area_pref.length === 0) return true;
+    if (c.id === lineVal) return true; // 現在利用中の回線は必ず残す
+    return c.area_pref.includes(pref);
+  });
+
   if (lineVal === 'other_catv') {
     const nm = document.getElementById('catvName').value.trim() || 'その他CATV';
     companies.push({
@@ -983,17 +995,16 @@ function calcAll() {
   document.getElementById('inputSection').style.display  = 'none';
   document.getElementById('resultSection').style.display = 'block';
 
-  const famDisc = 1100 * people * period;
+  // 👑 割引額を1210円で計算するように修正
+  const famDisc = 1210 * people * period;
   
-  // ▼ 追加：現在選択中の回線との差額を計算
   const currentResult = results.find(r => r.isCurrent);
   const monthGap  = currentResult ? currentResult.monthly - docomoResult.monthly : 0;
   const yearGap   = monthGap * 12;
-  // ▲ 追加ここまで
 
   document.getElementById('talkBox').innerHTML = `
     <div class="talk-label"><i class="ti ti-speakerphone" aria-hidden="true"></i>こんなにもオススメ！</div>
-    ご家族<strong>${people}名様</strong>のdocomo光セット割で、毎月<strong>${(1100 * people).toLocaleString()}円</strong>のスマホ料金割引！
+    ご家族<strong>${people}名様</strong>のdocomo光セット割で、毎月<strong>${(1210 * people).toLocaleString()}円</strong>のスマホ料金割引！
     ${period}ヶ月で合計<strong>${famDisc.toLocaleString()}円</strong>お得です。<br>
     ${currentResult && monthGap > 0
       ? `現在の回線より月額<strong style="color:var(--docomo-red);">${monthGap.toLocaleString()}円お得</strong>で、年間では<strong style="color:var(--docomo-red);">${yearGap.toLocaleString()}円</strong>の差になります！<br>`
@@ -1019,7 +1030,6 @@ function calcAll() {
     const recoBadge    = isDoc        ? '<span class="badge badge-recommend">おすすめ</span>' : '';
     const currentBadge = r.isCurrent  ? '<span class="badge badge-current">現在ご利用中</span>' : '';
 
-    // 👑 参照URL表示
     const spUrlHtml = r.c.sp_url
       ? `<div class="sp-url-row">
            <i class="ti ti-link" aria-hidden="true"></i>
@@ -1028,6 +1038,7 @@ function calcAll() {
          </div>`
       : '';
 
+    // 👑 新しいテーブル構造（初期費用と月額の分離）
     html += `
       <div class="rank-card ${isDoc ? 'docomo-highlight' : ''}">
         <div class="rank-card-header" onclick="toggleAccord('acc${i}','chv${i}')"
@@ -1042,24 +1053,29 @@ function calcAll() {
         </div>
         <div class="accord-body" id="acc${i}">
           <table class="cost-table">
-            <tr><td class="lbl">契約手数料</td><td class="val">${r.c.initial.toLocaleString()}円</td></tr>
-            <tr><td class="lbl">工事費</td><td class="val">${r.c.construction.toLocaleString()}円</td></tr>
-            <tr><td class="lbl">月額料金 × ${period}ヶ月</td><td class="val">${(r.c.monthly * period).toLocaleString()}円</td></tr>
-            <tr><td class="lbl">現在の解約金</td><td class="val">${currentCancel.toLocaleString()}円</td></tr>
-            <tr class="sep-row"><td class="lbl">かかるコスト合計</td><td class="val">${r.gross.toLocaleString()}円</td></tr>
-            <tr><td class="lbl saving">キャンペーン還元</td><td class="val saving">△${r.c.cashback.toLocaleString()}円</td></tr>
-            <tr><td class="lbl saving">docomo家族割 × ${people}名 × ${period}ヶ月</td><td class="val saving">△${r.familyDisc.toLocaleString()}円</td></tr>
+            <tr><td class="lbl" colspan="2" style="font-weight:600;padding-bottom:4px;">【初期費用】</td></tr>
+            <tr><td class="lbl">　事務手数料</td><td class="val">${r.c.initial.toLocaleString()}円</td></tr>
+            <tr><td class="lbl">　工事費</td><td class="val">${r.c.construction.toLocaleString()}円</td></tr>
+            <tr><td class="lbl">　現在の解約金</td><td class="val">${currentCancel.toLocaleString()}円</td></tr>
+            
+            <tr class="sep-row"><td class="lbl" colspan="2" style="font-weight:600;padding-top:8px;padding-bottom:4px;">【月額費用】</td></tr>
+            <tr><td class="lbl">　月額料金</td><td class="val">${r.c.monthly.toLocaleString()}円/月</td></tr>
+            
+            <tr class="sep-row"><td class="lbl">かかるコスト合計（${period}ヶ月）</td><td class="val">${r.gross.toLocaleString()}円</td></tr>
+            <tr><td class="lbl saving">　キャンペーン還元</td><td class="val saving">△${r.c.cashback.toLocaleString()}円</td></tr>
+            <tr><td class="lbl saving">　docomo家族割 × ${people}名 × ${period}ヶ月</td><td class="val saving">△${r.familyDisc.toLocaleString()}円</td></tr>
+            
             <tr class="sep-row total-row"><td class="lbl">実質トータルコスト</td><td class="val">${r.total.toLocaleString()}円</td></tr>
-          <tr><td class="lbl" style="font-size:14px;font-weight:700;">実質月額</td>
-              <td class="val" style="font-size:16px;color:var(--docomo-red);">${r.monthly.toLocaleString()}円/月</td></tr>
+            <tr><td class="lbl" style="font-size:14px;font-weight:700;">実質月額</td>
+                <td class="val" style="font-size:16px;color:var(--docomo-red);">${r.monthly.toLocaleString()}円/月</td></tr>
           
-          <!-- ▼ 追加：月額差額＆年間差額 -->
+          <!-- 月額差額＆年間差額 -->
           ${!isDoc ? (() => {
             const monthDiff = r.monthly - docomoResult.monthly;
             const yearDiff  = monthDiff * 12;
             let diffColor, sign;
             if (monthDiff > 0) {
-              diffColor = '#c62828'; sign = '+'; // docomoの方が安い（相手が高い）
+              diffColor = '#c62828'; sign = '+'; // docomoの方が安い
             } else if (monthDiff < 0) {
               diffColor = '#2e7d32'; sign = '';  // 相手の方が安い
             } else {
@@ -1075,9 +1091,8 @@ function calcAll() {
             <td class="val" style="color:${diffColor};font-weight:700;">${sign}${yearDiff.toLocaleString()}円/年</td>
           </tr>`;
           })() : ''}
-          <!-- ▲ 追加ここまで -->
 
-              </table>
+          </table>
           
           <p class="cost-note">${r.c.notes}</p>
           ${spUrlHtml}
