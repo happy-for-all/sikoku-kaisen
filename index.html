@@ -624,22 +624,33 @@
       </div>
     </div>
 
-    <div class="card">
+   <div class="card">
       <div class="section-title">
         <i class="ti ti-wifi" aria-hidden="true"></i>現在ご利用の回線
       </div>
-      <div class="field-group" style="margin-bottom:10px;">
-        <label for="currentLine">回線会社</label>
-        <select id="currentLine" onchange="onLineChange()">
-          <option value="">選択してください</option>
-          <option value="picara">ピカラ光（STNet）</option>
-          <option value="flets">NTTフレッツ光</option>
-          <option value="au">auひかり</option>
-          <option value="catv_kagawa">ケーブルメディア四国（香川）</option>
-          <option value="catv_kochi">高知ケーブルテレビ（高知）</option>
-          <option value="other_catv">その他CATV（手入力）</option>
-        </select>
+      <!-- 👑 追加：住居タイプと回線会社を並べる -->
+      <div class="field-row" style="margin-bottom:10px;">
+        <div class="field-group">
+          <label for="housingType">住居タイプ</label>
+          <select id="housingType" onchange="updateInputs()">
+            <option value="home" selected>戸建て</option>
+            <option value="mansion">マンション</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="currentLine">回線会社</label>
+          <select id="currentLine" onchange="updateInputs()">
+            <option value="">選択してください</option>
+            <option value="picara">ピカラ光（STNet）</option>
+            <option value="flets">NTTフレッツ光</option>
+            <option value="au">auひかり</option>
+            <option value="catv_kagawa">ケーブルメディア四国（香川）</option>
+            <option value="catv_kochi">高知ケーブルテレビ（高知）</option>
+            <option value="other_catv">その他CATV（手入力）</option>
+          </select>
+        </div>
       </div>
+
       <div id="manualInputs" class="manual-box" style="display:none;">
         <div class="field-group" style="margin-bottom:8px;">
           <label for="catvName">CATV会社名（任意）</label>
@@ -663,11 +674,11 @@
       <div class="field-row" style="margin-top:10px;">
         <div class="field-group">
           <label for="currentMonthly">現在の月額料金（円）</label>
-          <input type="number" id="currentMonthly" placeholder="5500" min="0">
+          <input type="number" id="currentMonthly" placeholder="4950" min="0">
         </div>
         <div class="field-group">
           <label for="currentCancel">現在の解約金（円）</label>
-          <input type="number" id="currentCancel" placeholder="10000" min="0">
+          <input type="number" id="currentCancel" placeholder="4950" min="0">
         </div>
       </div>
     </div>
@@ -762,76 +773,83 @@
 <script>
 "use strict";
 
-/* ---------- 定数 ---------- */
 const PERIOD = { val: 24 };
 
-// 👑 area_pref 追加、金額修正
+// 👑 最新の数値に統一。monthly_mansion を追加。
 const COMPANIES = [
   {
-    id: 'docomo', name: 'ドコモ光',
-    area_pref: ['徳島','香川','愛媛','高知'],
-    monthly: 5720, initial: 4950, construction: 0,
-    term: 24, cancel: 0,
-    discount_pp: 1210, cashback: 0,
-    speed: 1000, notes: '光コラボ。解約金なし。', is_manual: true,
+    id: 'docomo', name: 'ドコモ光', area_pref: ['徳島','香川','愛媛','高知'],
+    monthly: 5720, monthly_mansion: 4400, initial: 4950, construction: 0,
+    term: 24, cancel: 5500, discount_pp: 1210, cashback: 0, speed: 1000,
+    notes: '光コラボ。工事費実質無料。ドコモMAX等は1210円割引。', is_manual: true,
     sp_url: 'https://www.nttdocomo.co.jp/internet/hikari/charge/'
   },
   {
-    id: 'picara', name: 'ピカラ光（STNet）',
-    area_pref: ['徳島','香川','愛媛','高知'],
-    monthly: 5280, initial: 3300, construction: 19800,
-    term: 24, cancel: 10000,
-    discount_pp: 0, cashback: 20000,
-    speed: 1000, notes: '四国全域対応。高速光回線。', is_manual: false,
-    sp_url: 'https://www.stnet.co.jp/personal/'
+    id: 'picara', name: 'ピカラ光（STNet）', area_pref: ['徳島','香川','愛媛','高知'],
+    monthly: 4950, monthly_mansion: 3740, initial: 0, construction: 0,
+    term: 24, cancel: 4950, discount_pp: 0, cashback: 30000, speed: 1000,
+    notes: '初期費用・工事費0円(公式)。ステップ2コース。', is_manual: false,
+    sp_url: 'https://www.pikara.jp/hikari/'
   },
   {
-    id: 'flets', name: 'NTTフレッツ光',
-    area_pref: ['徳島','香川','愛媛','高知'],
-    monthly: 6050, initial: 3300, construction: 19800,
-    term: 24, cancel: 5000,
-    discount_pp: 0, cashback: 0,
-    speed: 1000, notes: '全国対応。robots.txt によりSP監視不可。手動確認が必要です。', is_manual: true,
+    id: 'flets', name: 'NTTフレッツ光', area_pref: ['徳島','香川','愛媛','高知'],
+    monthly: 6050, monthly_mansion: 4730, initial: 3300, construction: 22000,
+    term: 24, cancel: 5000, discount_pp: 0, cashback: 0, speed: 1000,
+    notes: '全国対応。プロバイダ料金別途。マンション料金は目安。', is_manual: true,
     sp_url: 'https://flets-w.com/'
   },
   {
-    id: 'au', name: 'auひかり',
-    area_pref: ['徳島','香川','愛媛','高知'],
-    monthly: 5610, initial: 3300, construction: 24200,
-    term: 24, cancel: 15000,
-    discount_pp: 0, cashback: 30000,
-    speed: 1000, notes: 'auスマホ割あり。', is_manual: false,
+    id: 'au', name: 'auひかり', area_pref: ['徳島','香川','愛媛','高知'],
+    monthly: 5610, monthly_mansion: 4180, initial: 3300, construction: 48950,
+    term: 36, cancel: 4730, discount_pp: 0, cashback: 0, speed: 1000,
+    notes: 'auスマホ割あり。マンション料金は目安。', is_manual: false,
     sp_url: 'https://www.au.com/internet/'
   },
   {
-    id: 'catv_kagawa', name: 'ケーブルメディア四国',
-    area_pref: ['香川'],
-    monthly: 4950, initial: 5500, construction: 11000,
-    term: 12, cancel: 11000,
-    discount_pp: 0, cashback: 0,
-    speed: 320, notes: '香川限定。最大320Mbps。', is_manual: false,
+    id: 'catv_kagawa', name: 'ケーブルメディア四国', area_pref: ['香川'],
+    monthly: 4950, monthly_mansion: 4950, initial: 5500, construction: 11000,
+    term: 12, cancel: 11000, discount_pp: 0, cashback: 0, speed: 320,
+    notes: '香川限定。', is_manual: false,
     sp_url: 'https://www.cavy.co.jp/'
   },
   {
-    id: 'catv_kochi', name: '高知ケーブルテレビ（KCB）',
-    area_pref: ['高知'],
-    monthly: 4620, initial: 5500, construction: 11000,
-    term: 12, cancel: 5000,
-    discount_pp: 0, cashback: 0,
-    speed: 200, notes: '高知限定。最大200Mbps。', is_manual: false,
+    id: 'catv_kochi', name: '高知ケーブルテレビ（KCB）', area_pref: ['高知'],
+    monthly: 4620, monthly_mansion: 4620, initial: 5500, construction: 11000,
+    term: 12, cancel: 5000, discount_pp: 0, cashback: 0, speed: 200,
+    notes: '高知限定。', is_manual: false,
     sp_url: 'https://www.kcb.co.jp/'
   }
 ];
 
+// 👑 PRESETSも住居タイプで切り替わるように構造変更
 const PRESETS = {
-  picara:      { monthly: 5280,  cancel: 10000, hint: 'ピカラ光の参考値：月額5,280円・解約金10,000円' },
-  flets:       { monthly: 6050,  cancel:  5000, hint: 'NTTフレッツ光の参考値：月額6,050円・解約金5,000円' },
-  au:          { monthly: 5610,  cancel: 15000, hint: 'auひかりの参考値：月額5,610円・解約金15,000円' },
-  catv_kagawa: { monthly: 4950,  cancel: 11000, hint: 'ケーブルメディア四国の参考値：月額4,950円・解約金11,000円' },
-  catv_kochi:  { monthly: 4620,  cancel:  5000, hint: '高知ケーブルテレビの参考値：月額4,620円・解約金5,000円' }
+  picara: {
+    home:    { monthly: 4950, hint: 'ピカラ光（戸建て）の参考値：月額4,950円' },
+    mansion: { monthly: 3740, hint: 'ピカラ光（マンション）の参考値：月額3,740円' },
+    cancel: 4950
+  },
+  flets: {
+    home:    { monthly: 6050, hint: 'NTTフレッツ光（戸建て）の参考値：月額6,050円' },
+    mansion: { monthly: 4730, hint: 'NTTフレッツ光（マンション）の参考値：月額4,730円目安' },
+    cancel: 5000
+  },
+  au: {
+    home:    { monthly: 5610, hint: 'auひかり（戸建て）の参考値：月額5,610円' },
+    mansion: { monthly: 4180, hint: 'auひかり（マンション）の参考値：月額4,180円目安' },
+    cancel: 4730
+  },
+  catv_kagawa: {
+    home:    { monthly: 4950, hint: 'ケーブルメディア四国の参考値：月額4,950円' },
+    mansion: { monthly: 4950, hint: 'ケーブルメディア四国の参考値：月額4,950円' },
+    cancel: 11000
+  },
+  catv_kochi: {
+    home:    { monthly: 4620, hint: '高知ケーブルテレビの参考値：月額4,620円' },
+    mansion: { monthly: 4620, hint: '高知ケーブルテレビの参考値：月額4,620円' },
+    cancel: 5000
+  }
 };
 
-/* ---------- data.json 読み込み・価格変更確認 ---------- */
 let dataJson = null;
 
 async function loadDataJson() {
@@ -847,12 +865,10 @@ async function loadDataJson() {
 
 function renderPriceCheck() {
   if (!dataJson) return;
-
-  const changeLog  = dataJson.change_log  || [];
-  const companies  = dataJson.companies   || COMPANIES;
-  const builtAt    = dataJson.built_at    || '不明';
-
-  const warnSet = new Set(changeLog.map(l => l.company));
+  const changeLog = dataJson.change_log || [];
+  const companies = dataJson.companies  || COMPANIES;
+  const builtAt   = dataJson.built_at   || '不明';
+  const warnSet   = new Set(changeLog.map(l => l.company));
 
   let html = '';
   companies.forEach(c => {
@@ -860,37 +876,31 @@ function renderPriceCheck() {
     const isManual = c.is_manual || false;
     const spUrl    = c.sp_url || '';
 
-    let statusHtml = '';
-    let msgHtml    = '';
+    let statusHtml = isManual 
+      ? `<span class="status-manual"><i class="ti ti-pencil" aria-hidden="true"></i>手動管理</span>`
+      : warnSet.has(name)
+        ? `<span class="status-warn"><i class="ti ti-alert-triangle" aria-hidden="true"></i>変化あり</span>`
+        : `<span class="status-ok"><i class="ti ti-check" aria-hidden="true"></i>変化なし</span>`;
 
-    if (isManual) {
-      statusHtml = `<span class="status-manual"><i class="ti ti-pencil" aria-hidden="true"></i>手動管理</span>`;
-    } else if (warnSet.has(name)) {
-      statusHtml = `<span class="status-warn"><i class="ti ti-alert-triangle" aria-hidden="true"></i>変化あり</span>`;
+    let msgHtml = '';
+    if (warnSet.has(name)) {
       const log = changeLog.find(l => l.company === name);
       if (log) msgHtml = `<div class="price-check-msg">⚠ ${log.message}（${log.date}）</div>`;
-    } else {
-      statusHtml = `<span class="status-ok"><i class="ti ti-check" aria-hidden="true"></i>変化なし</span>`;
     }
 
     const urlHtml = spUrl
       ? `<div style="font-size:11px;color:var(--gray-text);margin-top:2px;">
-           <i class="ti ti-link" aria-hidden="true"></i>
            <a href="${spUrl}" target="_blank" rel="noopener noreferrer">${spUrl}</a>
-         </div>`
-      : '';
+         </div>` : '';
 
     html += `
       <div class="price-check-row" style="flex-direction:column;align-items:flex-start;">
         <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
-          <span class="price-check-name">${name}</span>
-          ${statusHtml}
+          <span class="price-check-name">${name}</span>${statusHtml}
         </div>
-        ${urlHtml}
-        ${msgHtml}
+        ${urlHtml}${msgHtml}
       </div>`;
   });
-
   document.getElementById('priceCheckList').innerHTML = html;
   document.getElementById('builtAt').textContent = `最終WF実行: ${builtAt}`;
 }
@@ -898,65 +908,62 @@ function renderPriceCheck() {
 function togglePriceCheck() {
   const body = document.getElementById('priceCheckBody');
   const chv  = document.getElementById('priceCheckChv');
-  const isOpen = body.classList.toggle('open');
-  chv.classList.toggle('open', isOpen);
+  chv.classList.toggle('open', body.classList.toggle('open'));
 }
 
-/* ---------- SEO アコーディオン ---------- */
 function toggleSeoAccord() {
   const el  = document.getElementById('seoAccordBody');
   const chv = document.getElementById('seoAccordChv');
-  const isOpen = el.classList.toggle('open');
-  chv.classList.toggle('open', isOpen);
+  chv.classList.toggle('open', el.classList.toggle('open'));
 }
 
-/* ---------- 期間切り替え ---------- */
 function setPeriod(n) {
   PERIOD.val = n;
   document.getElementById('btn24').className = 'toggle-btn' + (n === 24 ? ' active' : '');
   document.getElementById('btn36').className = 'toggle-btn' + (n === 36 ? ' active' : '');
 }
 
-/* ---------- 回線選択変更 ---------- */
-function onLineChange() {
-  const v   = document.getElementById('currentLine').value;
+// 👑 回線または住居タイプが変わった時に連動して入力欄を更新
+function updateInputs() {
+  const lineVal = document.getElementById('currentLine').value;
+  const house   = document.getElementById('housingType').value;
   const mi  = document.getElementById('manualInputs');
   const pi  = document.getElementById('presetInfo');
   const pt  = document.getElementById('presetText');
   const mon = document.getElementById('currentMonthly');
   const cnl = document.getElementById('currentCancel');
 
-  mi.style.display = (v === 'other_catv') ? 'block' : 'none';
+  mi.style.display = (lineVal === 'other_catv') ? 'block' : 'none';
 
-  if (PRESETS[v]) {
-    mon.value = PRESETS[v].monthly;
-    cnl.value = PRESETS[v].cancel;
-    pt.textContent = PRESETS[v].hint;
+  if (PRESETS[lineVal]) {
+    const data = PRESETS[lineVal];
+    mon.value = data[house].monthly;
+    cnl.value = data.cancel;
+    pt.textContent = `${data[house].hint}・解約金${data.cancel.toLocaleString()}円`;
     pi.style.display = 'flex';
   } else {
     pi.style.display = 'none';
-    if (v === 'other_catv') { mon.value = ''; cnl.value = ''; }
+    if (lineVal === 'other_catv') { mon.value = ''; cnl.value = ''; }
   }
 }
 
-/* ---------- 実質月額計算 ---------- */
 function calcReal(c, people, period, otherCancel) {
   const gross  = c.initial + c.construction + c.monthly * period + otherCancel;
+  // 計算自体は discount_pp(最大額)で行う
   const deduct = c.cashback + c.discount_pp * people * period;
   const total  = Math.max(gross - deduct, 0);
   return { total, monthly: Math.round(total / period), gross, deduct, familyDisc: c.discount_pp * people * period, c };
 }
 
-/* ---------- 星マーク ---------- */
 function starsHtml(score) {
   let s = '';
   for (let i = 1; i <= 5; i++) s += `<span class="${i <= score ? 'star-on' : 'star-off'}">★</span>`;
   return s;
 }
 
-/* ---------- メイン計算 ---------- */
 function calcAll() {
   const pref           = document.getElementById('pref').value;
+  const housingType    = document.getElementById('housingType').value;
   const people         = parseInt(document.getElementById('people').value) || 3;
   const period         = PERIOD.val;
   const currentMonthly = parseInt(document.getElementById('currentMonthly').value) || 0;
@@ -966,11 +973,19 @@ function calcAll() {
   if (!pref)    { alert('お住まいの県を選択してください。'); return; }
   if (!lineVal) { alert('現在の回線を選択してください。'); return; }
 
-  // 👑 選択県でフィルタリング（ただし、現在利用中の回線として選ばれたものは非表示にしない安全対策）
-  let companies = JSON.parse(JSON.stringify(COMPANIES)).filter(c => {
+  // 👑 data.jsonから取得した最新データを使う（なければ定数）
+  const baseCompanies = dataJson && dataJson.companies ? dataJson.companies : COMPANIES;
+
+  // 👑 マンション選択時は、monthly を monthly_mansion で上書きする
+  let companies = JSON.parse(JSON.stringify(baseCompanies)).filter(c => {
     if (!c.area_pref || c.area_pref.length === 0) return true;
-    if (c.id === lineVal) return true; // 現在利用中の回線は必ず残す
+    if (c.id === lineVal) return true; 
     return c.area_pref.includes(pref);
+  }).map(c => {
+    if (housingType === 'mansion' && c.monthly_mansion !== undefined) {
+      c.monthly = c.monthly_mansion;
+    }
+    return c;
   });
 
   if (lineVal === 'other_catv') {
@@ -995,8 +1010,8 @@ function calcAll() {
   document.getElementById('inputSection').style.display  = 'none';
   document.getElementById('resultSection').style.display = 'block';
 
-  // 👑 割引額を1210円で計算するように修正
-  const famDisc = 1210 * people * period;
+  // 👑 1100円〜1210円の誠実な表記
+  const famDiscMax = 1210 * people * period;
   
   const currentResult = results.find(r => r.isCurrent);
   const monthGap  = currentResult ? currentResult.monthly - docomoResult.monthly : 0;
@@ -1004,8 +1019,8 @@ function calcAll() {
 
   document.getElementById('talkBox').innerHTML = `
     <div class="talk-label"><i class="ti ti-speakerphone" aria-hidden="true"></i>こんなにもオススメ！</div>
-    ご家族<strong>${people}名様</strong>のdocomo光セット割で、毎月<strong>${(1210 * people).toLocaleString()}円</strong>のスマホ料金割引！
-    ${period}ヶ月で合計<strong>${famDisc.toLocaleString()}円</strong>お得です。<br>
+    ご家族<strong>${people}名様</strong>のdocomo光セット割で、毎月<strong>${(1100 * people).toLocaleString()}円</strong>（eximo等）～<strong>${(1210 * people).toLocaleString()}円</strong>（ドコモMAX等）のスマホ料金割引！
+    ${period}ヶ月で合計最大<strong>${famDiscMax.toLocaleString()}円</strong>お得です。<br>
     ${currentResult && monthGap > 0
       ? `現在の回線より月額<strong style="color:var(--docomo-red);">${monthGap.toLocaleString()}円お得</strong>で、年間では<strong style="color:var(--docomo-red);">${yearGap.toLocaleString()}円</strong>の差になります！<br>`
       : ''}
@@ -1038,7 +1053,6 @@ function calcAll() {
          </div>`
       : '';
 
-    // 👑 新しいテーブル構造（初期費用と月額の分離）
     html += `
       <div class="rank-card ${isDoc ? 'docomo-highlight' : ''}">
         <div class="rank-card-header" onclick="toggleAccord('acc${i}','chv${i}')"
@@ -1063,24 +1077,27 @@ function calcAll() {
             
             <tr class="sep-row"><td class="lbl">かかるコスト合計（${period}ヶ月）</td><td class="val">${r.gross.toLocaleString()}円</td></tr>
             <tr><td class="lbl saving">　キャンペーン還元</td><td class="val saving">△${r.c.cashback.toLocaleString()}円</td></tr>
-            <tr><td class="lbl saving">　docomo家族割 × ${people}名 × ${period}ヶ月</td><td class="val saving">△${r.familyDisc.toLocaleString()}円</td></tr>
+            
+            <!-- 👑 割引注釈の追記 -->
+            <tr>
+              <td class="lbl saving">
+                　docomo家族割 × ${people}名 × ${period}ヶ月<br>
+                <span style="font-size:10px;">※試算は最大割引額（1,210円/月）で計算</span>
+              </td>
+              <td class="val saving">△${r.familyDisc.toLocaleString()}円</td>
+            </tr>
             
             <tr class="sep-row total-row"><td class="lbl">実質トータルコスト</td><td class="val">${r.total.toLocaleString()}円</td></tr>
             <tr><td class="lbl" style="font-size:14px;font-weight:700;">実質月額</td>
                 <td class="val" style="font-size:16px;color:var(--docomo-red);">${r.monthly.toLocaleString()}円/月</td></tr>
           
-          <!-- 月額差額＆年間差額 -->
           ${!isDoc ? (() => {
             const monthDiff = r.monthly - docomoResult.monthly;
             const yearDiff  = monthDiff * 12;
             let diffColor, sign;
-            if (monthDiff > 0) {
-              diffColor = '#c62828'; sign = '+'; // docomoの方が安い
-            } else if (monthDiff < 0) {
-              diffColor = '#2e7d32'; sign = '';  // 相手の方が安い
-            } else {
-              diffColor = 'var(--gray-text)'; sign = '±'; // 同額
-            }
+            if (monthDiff > 0) { diffColor = '#c62828'; sign = '+'; }
+            else if (monthDiff < 0) { diffColor = '#2e7d32'; sign = ''; }
+            else { diffColor = 'var(--gray-text)'; sign = '±'; }
             return `
           <tr class="sep-row">
             <td class="lbl" style="color:${diffColor};font-weight:600;">docomo光との月額差</td>
@@ -1091,9 +1108,7 @@ function calcAll() {
             <td class="val" style="color:${diffColor};font-weight:700;">${sign}${yearDiff.toLocaleString()}円/年</td>
           </tr>`;
           })() : ''}
-
           </table>
-          
           <p class="cost-note">${r.c.notes}</p>
           ${spUrlHtml}
         </div>
@@ -1108,17 +1123,14 @@ function calcAll() {
   document.querySelectorAll('.print-only').forEach(el => el.style.display = 'block');
 }
 
-/* ---------- アコーディオン ---------- */
 function toggleAccord(id, chvId) {
   const el  = document.getElementById(id);
   const chv = document.getElementById(chvId);
   const hdr = chv.closest('[role="button"]');
-  const isOpen = el.classList.toggle('open');
-  chv.classList.toggle('open', isOpen);
-  if (hdr) hdr.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  chv.classList.toggle('open', el.classList.toggle('open'));
+  if (hdr) hdr.setAttribute('aria-expanded', el.classList.contains('open') ? 'true' : 'false');
 }
 
-/* ---------- 入力に戻る ---------- */
 function goBack() {
   document.getElementById('resultSection').style.display = 'none';
   document.getElementById('inputSection').style.display  = 'block';
@@ -1126,7 +1138,6 @@ function goBack() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ---------- 初期化 ---------- */
 window.addEventListener('DOMContentLoaded', () => {
   loadDataJson();
 });
