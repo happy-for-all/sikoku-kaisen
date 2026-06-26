@@ -1,5 +1,5 @@
 company_id,company_name,area_pref,type,monthly_fee_base,initial_fee,construction_fee,contract_term_months,cancellation_fee,docomo_discount_per_person,campaign_cashback,speed_mbps,discount_type,sp_url,is_manual,notes
-docomo,ドコモ光,徳島|香川|愛媛|高知,光回線,5720,3300,0,24,5500,1100,0,1000,family,https://www.nttdocomo.co.jp/internet/hikari/charge/,true,光コラボ。工事費実質無料（dポイント還元）。2年定額・更新月以外の解約金5500円。
+docomo,ドコモ光,徳島|香川|愛媛|高知,光回線,5720,4950,0,24,5500,1210,0,1000,family,https://www.nttdocomo.co.jp/internet/hikari/charge/,true,光コラボ。工事費実質無料（dポイント還元）。2年定額・更新月以外の解約金5500円。
 picara,ピカラ光（STNet）,徳島|香川|愛媛|高知,光回線,3740,0,0,24,4950,0,30000,1000,none,https://www.pikara.jp/hikari/,false,"四国全域対応。初期費用・工事費0円（公式）。ステップ2コース税込3,740円。CB30,000円は時期により変動。"
 flets,NTTフレッツ光,徳島|香川|愛媛|高知,光回線,5940,3300,22000,24,0,0,0,1000,none,https://flets-w.com/service/next/price/user/,false,"全国対応。プロバイダ料金別途。にねん割廃止により解約金0円。工事費22,000円（v5 SP取得・2024年2月改定値）。"
 au,auひかり,徳島|香川|愛媛|高知,光回線,5610,3300,48950,36,4730,0,0,1000,none,https://www.au.com/internet/auhikari_1g/charge/zuttogigatoku/,false,auスマホ割あり。工事費48950円（2025年7月改定）。3年契約。CB代理店により変動のため0円。
