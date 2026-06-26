@@ -1,7 +1,7 @@
 company_id,company_name,area_pref,type,monthly_fee_base,monthly_mansion,initial_fee,construction_fee,contract_term_months,cancellation_fee,docomo_discount_per_person,campaign_cashback,speed_mbps,discount_type,sp_url,is_manual,notes
 docomo,ドコモ光,徳島|香川|愛媛|高知,光回線,5720,4400,4950,0,24,5500,1210,0,1000,family,https://www.nttdocomo.co.jp/internet/hikari/charge/,true,光コラボ。工事費実質無料。ドコモMAX等は1210円割引。
 picara,ピカラ光（STNet）,徳島|香川|愛媛|高知,光回線,4950,3740,0,0,24,4950,0,30000,1000,none,https://www.pikara.jp/hikari/,false,"初期費用・工事費0円(公式)。ステップ2コース。"
-flets,NTTフレッツ光,徳島|香川|愛媛|高知,光回線,6050,4730,3300,22000,24,5000,0,0,1000,none,https://flets-w.com/service/next/price/user/,false,"全国対応。プロバイダ料金別途。マンション料金は目安。"
+flets,NTTフレッツ光,徳島|香川|愛媛|高知,光回線,6050,4730,3300,22000,24,5000,0,0,1000,none,https://flets-w.com/service/next/price/user/,true,"全国対応。プロバイダ料金別途。マンション料金は目安。"
 au,auひかり,徳島|香川|愛媛|高知,光回線,5610,4180,3300,48950,36,4730,0,0,1000,none,https://www.au.com/internet/auhikari_1g/charge/zuttogigatoku/,false,"auスマホ割あり。マンション料金は目安。"
 catv_kagawa,ケーブルメディア四国,香川,CATV,4950,4950,5500,11000,12,11000,0,0,320,none,https://www.cavy.co.jp/service/,true,"香川限定。"
 catv_kochi,高知ケーブルテレビ（KCB）,高知,CATV,4620,4620,5500,11000,12,5000,0,0,200,none,https://www.kcb.co.jp/internet/,true,"高知限定。"
