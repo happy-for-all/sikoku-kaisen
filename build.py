@@ -208,9 +208,13 @@ def scrape_hash(url: str) -> str | None:
         return None
 
 def build():
+    print('=' * 50)
+    print(f'[build] ビルド開始: {now_jst()}')
+    print('=' * 50)
     os.makedirs(DIST_DIR, exist_ok=True)
     if os.path.exists(INDEX_HTML):
         shutil.copy(INDEX_HTML, os.path.join(DIST_DIR, INDEX_HTML))
+        print(f'[build] {INDEX_HTML} コピー完了')
 
     companies = load_master_csv()
     prev_data = fetch_prev_data()
@@ -251,6 +255,14 @@ def build():
 
     with open(os.path.join(DIST_DIR, DATA_JSON), 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+print(f'[build] {DATA_JSON} 出力完了')
+    manual_required = [c['name'] for c in companies if c.get('is_manual_required')]
+    if manual_required:
+        print(f'[build] ⚠ 手動確認推奨: {", ".join(manual_required)}')
+    else:
+        print(f'[build] ✅ 全社正常')
+    print(f'[build] ビルド完了: {now_jst()}')
 
 if __name__ == '__main__':
     build()
