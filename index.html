@@ -974,7 +974,28 @@ function calcAll() {
   if (!lineVal) { alert('現在の回線を選択してください。'); return; }
 
   // 👑 data.jsonから取得した最新データを使う（なければ定数）
-  const baseCompanies = dataJson && dataJson.companies ? dataJson.companies : COMPANIES;
+  // data.jsonから取得した最新データを使う（なければ定数）
+  // data.jsonのキー名(monthly_fee等)をJS内部キー名(monthly等)に正規化する
+  const rawCompanies = dataJson && dataJson.companies ? dataJson.companies : COMPANIES;
+  const baseCompanies = rawCompanies.map(c => ({
+    id:           c.id,
+    name:         c.name || c.company_name || '',
+    area_pref:    Array.isArray(c.area_pref) ? c.area_pref : [],
+    type:         c.type || '',
+    monthly:      c.monthly      !== undefined ? c.monthly      : (c.monthly_fee      || 0),
+    monthly_mansion: c.monthly_mansion !== undefined ? c.monthly_mansion : (c.monthly_fee || 0),
+    initial:      c.initial      !== undefined ? c.initial      : (c.initial_fee      || 0),
+    construction: c.construction !== undefined ? c.construction : (c.construction_fee || 0),
+    term:         c.term         !== undefined ? c.term         : (c.contract_term_months || 24),
+    cancel:       c.cancel       !== undefined ? c.cancel       : (c.cancellation_fee  || 0),
+    discount_pp:  c.discount_pp  !== undefined ? c.discount_pp  : (c.docomo_discount_per_person || 0),
+    cashback:     c.cashback     !== undefined ? c.cashback     : (c.campaign_cashback  || 0),
+    speed:        c.speed        !== undefined ? c.speed        : (c.speed_mbps         || 0),
+    notes:        c.notes        || '',
+    is_manual:    c.is_manual    || false,
+    sp_url:       c.sp_url       || '',
+  }));
+
 
   // 👑 マンション選択時は、monthly を monthly_mansion で上書きする
   let companies = JSON.parse(JSON.stringify(baseCompanies)).filter(c => {
