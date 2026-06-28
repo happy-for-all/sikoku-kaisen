@@ -108,22 +108,6 @@
     select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
     select:focus, input:focus { outline: 2px solid var(--docomo-red); outline-offset: 1px; border-color: var(--docomo-red); }
 
-    /* ========== TOGGLE ========== */
-    .toggle-row { display: flex; gap: 8px; }
-    .toggle-btn {
-      flex: 1;
-      padding: 9px;
-      border: 1px solid var(--gray-border);
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      cursor: pointer;
-      background: var(--white);
-      color: var(--gray-text);
-      text-align: center;
-      transition: all 0.15s;
-    }
-    .toggle-btn.active { background: var(--docomo-red); color: var(--white); border-color: var(--docomo-red); font-weight: 600; }
-
     /* ========== MANUAL INPUT AREA ========== */
     .manual-box {
       background: var(--gray-bg);
@@ -290,7 +274,7 @@
     .cost-table .total-row .val { font-weight: 700; font-size: 14px; }
     .cost-note { font-size: 11px; color: var(--gray-text); margin-top: 6px; line-height: 1.6; }
 
-    /* 👑 参照URL表示 */
+    /* 参照URL表示 */
     .sp-url-row {
       margin-top: 8px;
       padding-top: 8px;
@@ -334,7 +318,7 @@
     }
     .talk-examples { font-size: 12px; color: var(--gray-text); line-height: 1.9; margin-top: 8px; }
 
-    /* 👑 価格変更確認アコーディオン */
+    /* 価格変更確認アコーディオン */
     .price-check-accordion {
       margin-top: 14px;
       border: 1px solid #ffe082;
@@ -436,7 +420,7 @@
       .talk-box { border-left: 3px solid var(--docomo-red); }
     }
 
-    /* ========== 👑 [追加] CATCH COPY ========== */
+    /* ========== CATCH COPY ========== */
     .catch-copy {
       background: linear-gradient(135deg, var(--docomo-red) 0%, var(--docomo-dark) 100%);
       color: var(--white);
@@ -455,7 +439,7 @@
       margin-top: 3px;
     }
 
-    /* ========== 👑 [追加] SEO ACCORDION ========== */
+    /* ========== SEO ACCORDION ========== */
     .seo-accordion {
       background: var(--white);
       border: 1px solid var(--gray-border);
@@ -521,7 +505,7 @@
   </div>
 </header>
 
-<!-- ===== 👑 [追加] CATCH COPY ===== -->
+<!-- ===== CATCH COPY ===== -->
 <div class="catch-copy no-print">
   docomo好きの、docomo好きによる、docomo好きのための比較検索サイトです！
   <span>四国エリア（徳島・香川・愛媛・高知）の光回線・CATV各社と docomo光を実質料金で比較します</span>
@@ -533,7 +517,7 @@
   <!-- ===== INPUT SECTION ===== -->
   <section id="inputSection" aria-label="お客様情報入力">
 
-    <!-- ===== 👑 [追加] SEO アコーディオン ===== -->
+    <!-- ===== SEO アコーディオン ===== -->
     <div class="seo-accordion no-print">
       <div class="seo-accordion-header" onclick="toggleSeoAccord()" id="seoAccordHeader">
         <span><i class="ti ti-info-circle" style="margin-right:6px;" aria-hidden="true"></i>docomo光への乗り換えを検討中の方へ</span>
@@ -551,9 +535,9 @@
 
         <h2>💡 このシミュレーターでわかること</h2>
         <ul>
-          <li>現在ご利用の回線（ピカラ光・フレッツ光・auひかり・CATV等）との<strong>実質月額の差額</strong></li>
-          <li>工事費・初期費用・解約金・キャッシュバックをすべて含めた<strong>トータルコスト比較</strong></li>
-          <li>家族人数に応じた<strong>docomo家族割の節約額</strong>（24ヶ月・36ヶ月で試算）</li>
+          <li>現在ご利用の回線（ピカラ光・フレッツ光・auひかり・CATV等）との<strong>月額料金の差額</strong></li>
+          <li>初期費用・工事費・解約金を含めた<strong>各社の一回払いコストの確認</strong></li>
+          <li>家族人数に応じた<strong>docomo家族割の月々の節約額</strong></li>
           <li>乗り換え時に損をしないための<strong>解約金・違約金の確認</strong></li>
         </ul>
 
@@ -563,7 +547,6 @@
           <li><strong>工事費実質無料</strong>：dポイント還元により実質0円で開通可能</li>
           <li><strong>最大通信速度1Gbps</strong>：動画・テレワーク・オンラインゲームも快適</li>
           <li><strong>ドコモショップで直接サポート</strong>：四国各地のドコモショップで対応</li>
-          <li><strong>家族が多いほどお得</strong>：家族4名なら毎月4,400円・24ヶ月で最大105,600円節約</li>
         </ul>
 
         <h2>📊 四国の主要回線との比較ポイント</h2>
@@ -628,7 +611,6 @@
       <div class="section-title">
         <i class="ti ti-wifi" aria-hidden="true"></i>現在ご利用の回線
       </div>
-      <!-- 👑 追加：住居タイプと回線会社を並べる -->
       <div class="field-row" style="margin-bottom:10px;">
         <div class="field-group">
           <label for="housingType">住居タイプ</label>
@@ -683,32 +665,9 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="section-title">
-        <i class="ti ti-calendar" aria-hidden="true"></i>比較期間
-      </div>
-      <div class="toggle-row">
-        <button class="toggle-btn active" id="btn24" onclick="setPeriod(24)" type="button">24ヶ月（2年）</button>
-        <button class="toggle-btn"        id="btn36" onclick="setPeriod(36)" type="button">36ヶ月（3年）</button>
-      </div>
-    </div>
-
     <button class="calc-btn no-print" onclick="calcAll()" type="button">
-      <i class="ti ti-calculator" aria-hidden="true"></i>実質料金を計算する
+      <i class="ti ti-calculator" aria-hidden="true"></i>月額料金を比較する
     </button>
-
-    <!--
-    <div class="adsense-container">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2908004621823900" crossorigin="anonymous"></script>
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:300px;height:250px"
-           data-ad-client="ca-pub-2908004621823900"
-           data-ad-slot="3799886389"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-    -->
 
   </section>
 
@@ -716,7 +675,7 @@
   <section id="resultSection" aria-label="計算結果">
 
     <div class="result-topbar no-print">
-      <h2><i class="ti ti-trophy" aria-hidden="true"></i>実質月額ランキング</h2>
+      <h2><i class="ti ti-trophy" aria-hidden="true"></i>月額料金ランキング</h2>
       <button class="print-btn" onclick="window.print()" type="button">
         <i class="ti ti-printer" aria-hidden="true"></i>お客様用PDF出力
       </button>
@@ -735,7 +694,7 @@
         <i class="ti ti-tools" aria-hidden="true"></i>スタッフモード
       </div>
 
-      <!-- 👑 価格変更確認アコーディオン -->
+      <!-- 価格変更確認アコーディオン -->
       <div class="price-check-accordion">
         <div class="price-check-header" onclick="togglePriceCheck()" id="priceCheckHeader">
           <span><i class="ti ti-refresh" style="margin-right:5px;" aria-hidden="true"></i>価格変更確認（最終WF実行結果）</span>
@@ -752,7 +711,7 @@
         <strong>切り返しトーク例</strong><br>
         「速度が遅くなるのでは？」→「docomo光は最大1Gbps。現在のCATVより高速です。」<br>
         「サポートが心配」→「ドコモショップで直接サポート対応いたします。」<br>
-        「工事が面倒」→「工事日程はご希望に合わせて調整可。工事費込みの実質コストで比較しています。」
+        「工事が面倒」→「工事日程はご希望に合わせて調整可。工事費も実質無料でご案内しています。」
       </div>
     </div>
 
@@ -773,9 +732,6 @@
 <script>
 "use strict";
 
-const PERIOD = { val: 24 };
-
-// 👑 最新の数値に統一。monthly_mansion を追加。
 const COMPANIES = [
   {
     id: 'docomo', name: 'ドコモ光', area_pref: ['徳島','香川','愛媛','高知'],
@@ -821,7 +777,6 @@ const COMPANIES = [
   }
 ];
 
-// 👑 PRESETSも住居タイプで切り替わるように構造変更
 const PRESETS = {
   picara: {
     home:    { monthly: 4950, hint: 'ピカラ光（戸建て）の参考値：月額4,950円' },
@@ -917,13 +872,6 @@ function toggleSeoAccord() {
   chv.classList.toggle('open', el.classList.toggle('open'));
 }
 
-function setPeriod(n) {
-  PERIOD.val = n;
-  document.getElementById('btn24').className = 'toggle-btn' + (n === 24 ? ' active' : '');
-  document.getElementById('btn36').className = 'toggle-btn' + (n === 36 ? ' active' : '');
-}
-
-// 👑 回線または住居タイプが変わった時に連動して入力欄を更新
 function updateInputs() {
   const lineVal = document.getElementById('currentLine').value;
   const house   = document.getElementById('housingType').value;
@@ -947,12 +895,27 @@ function updateInputs() {
   }
 }
 
-function calcReal(c, people, period, otherCancel) {
-  const gross  = c.initial + c.construction + c.monthly * period + otherCancel;
-  // 計算自体は discount_pp(最大額)で行う
-  const deduct = c.cashback + c.discount_pp * people * period;
-  const total  = Math.max(gross - deduct, 0);
-  return { total, monthly: Math.round(total / period), gross, deduct, familyDisc: c.discount_pp * people * period, c };
+// ============================================================
+// 料金計算：月額・初期費用を分離して返す
+// ============================================================
+function calcCompany(c, people) {
+  // 【月額】実際に毎月払う金額（docomoのみ家族割を差し引く）
+  const monthlyDiscount = c.discount_pp * people; // docomo家族割（月額から引く）
+  const monthlyActual   = Math.max(c.monthly - monthlyDiscount, 0);
+
+  // 【初期費用】事務手数料＋工事費（一回払い）
+  const initialGross = c.initial + c.construction;
+  // キャッシュバックを引いた実質初期費用（マイナスになる場合は0）
+  const initialNet   = Math.max(initialGross - c.cashback, 0);
+
+  return {
+    c,
+    monthlyActual,    // 毎月実際に払う金額
+    monthlyDiscount,  // 家族割による月額割引額（docomoのみ）
+    initialGross,     // 初期費用合計（キャッシュバック前）
+    initialNet,       // 実質初期費用（キャッシュバック後）
+    cashback: c.cashback, // キャンペーンキャッシュバック
+  };
 }
 
 function starsHtml(score) {
@@ -965,7 +928,6 @@ function calcAll() {
   const pref           = document.getElementById('pref').value;
   const housingType    = document.getElementById('housingType').value;
   const people         = parseInt(document.getElementById('people').value) || 3;
-  const period         = PERIOD.val;
   const currentMonthly = parseInt(document.getElementById('currentMonthly').value) || 0;
   const currentCancel  = parseInt(document.getElementById('currentCancel').value) || 0;
   const lineVal        = document.getElementById('currentLine').value;
@@ -973,9 +935,6 @@ function calcAll() {
   if (!pref)    { alert('お住まいの県を選択してください。'); return; }
   if (!lineVal) { alert('現在の回線を選択してください。'); return; }
 
-  // 👑 data.jsonから取得した最新データを使う（なければ定数）
-  // data.jsonから取得した最新データを使う（なければ定数）
-  // data.jsonのキー名(monthly_fee等)をJS内部キー名(monthly等)に正規化する
   const rawCompanies = dataJson && dataJson.companies ? dataJson.companies : COMPANIES;
   const baseCompanies = rawCompanies.map(c => ({
     id:           c.id,
@@ -996,8 +955,6 @@ function calcAll() {
     sp_url:       c.sp_url       || '',
   }));
 
-
-  // 👑 マンション選択時は、monthly を monthly_mansion で上書きする
   let companies = JSON.parse(JSON.stringify(baseCompanies)).filter(c => {
     if (!c.area_pref || c.area_pref.length === 0) return true;
     if (c.id === lineVal) return true; 
@@ -1014,7 +971,7 @@ function calcAll() {
     companies.push({
       id: 'other_catv', name: nm,
       monthly: currentMonthly, initial: 5000, construction: 11000,
-      term: period, cancel: 0, discount_pp: 0, cashback: 0,
+      term: 24, cancel: 0, discount_pp: 0, cashback: 0,
       speed: 200, notes: '手入力値。', is_manual: true, sp_url: ''
     });
   }
@@ -1024,32 +981,36 @@ function calcAll() {
     alert('データの読み込みに失敗しました。ページを再読み込みしてください。');
     return;
   }
-  const docomoResult = calcReal(docomoData, people, period, currentCancel);
+  
+  // docomoの計算結果
+  const docomoResult = calcCompany(docomoData, people);
 
+  // 全社の計算結果（月額の安い順にソート）
   const results = companies.map(c => ({
-    ...calcReal(c, people, period, currentCancel),
+    ...calcCompany(c, people),
     isCurrent: c.id === lineVal,
     isDocomo:  c.id === 'docomo'
-  })).sort((a, b) => a.monthly - b.monthly);
+  })).sort((a, b) => a.monthlyActual - b.monthlyActual);
 
   document.getElementById('inputSection').style.display  = 'none';
   document.getElementById('resultSection').style.display = 'block';
 
-  // 👑 1100円〜1210円の誠実な表記
-  const famDiscMax = 1210 * people * period;
-  
-  const currentResult = results.find(r => r.isCurrent);
-  const monthGap  = currentResult ? currentResult.monthly - docomoResult.monthly : 0;
-  const yearGap   = monthGap * 12;
+  // 現在回線との月額差を計算
+  const currentResult  = results.find(r => r.isCurrent);
+  const monthGap = currentResult
+    ? currentResult.monthlyActual - docomoResult.monthlyActual
+    : 0;
 
   document.getElementById('talkBox').innerHTML = `
-    <div class="talk-label"><i class="ti ti-speakerphone" aria-hidden="true"></i>こんなにもオススメ！</div>
-    ご家族<strong>${people}名様</strong>のdocomo光セット割で、毎月<strong>${(1100 * people).toLocaleString()}円</strong>（eximo等）～<strong>${(1210 * people).toLocaleString()}円</strong>（ドコモMAX等）のスマホ料金割引！
-    ${period}ヶ月で合計最大<strong>${famDiscMax.toLocaleString()}円</strong>お得です。<br>
+    <div class="talk-label"><i class="ti ti-speakerphone" aria-hidden="true"></i>乗り換えシミュレーション結果</div>
+    ご家族<strong>${people}名様</strong>のdocomo家族割で、月額から毎月<strong>${(docomoData.discount_pp * people).toLocaleString()}円割引</strong>されます。<br>
+    docomo光の月額：<strong style="color:var(--docomo-red);">${docomoResult.monthlyActual.toLocaleString()}円/月</strong>
     ${currentResult && monthGap > 0
-      ? `現在の回線より月額<strong style="color:var(--docomo-red);">${monthGap.toLocaleString()}円お得</strong>で、年間では<strong style="color:var(--docomo-red);">${yearGap.toLocaleString()}円</strong>の差になります！<br>`
+      ? `　→　現在の回線より月々<strong style="color:var(--docomo-red);">${monthGap.toLocaleString()}円お得</strong>です！`
+      : currentResult && monthGap < 0
+      ? `　→　現在の回線より月々<strong style="color:#2e7d32;">${Math.abs(monthGap).toLocaleString()}円高め</strong>ですが、初期費用・キャンペーンもあわせてご確認ください。`
       : ''}
-    実質月額は<strong>${docomoResult.monthly.toLocaleString()}円/月</strong>で、工事費・解約金込みのトータルでもNo.1のお得さです！
+    <br><small style="color:var(--gray-text);">※ 各社の詳細（初期費用・キャンペーン・解約金）は下のカードをタップして確認できます。</small>
   `;
 
   let html = '';
@@ -1057,23 +1018,36 @@ function calcAll() {
     const rank       = i + 1;
     const badgeClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-other';
     const isDoc      = r.isDocomo;
-    const diff       = r.monthly - docomoResult.monthly;
-    const starScore  = isDoc ? 5 : Math.max(1, Math.min(4, Math.round(4 - diff / 500)));
+    
+    // 月額差（現在回線との比較用）
+    const diffVsDocomo  = r.monthlyActual - docomoResult.monthlyActual;
+    const diffSign      = diffVsDocomo > 0 ? '+' : '';
+    const diffColor     = diffVsDocomo > 0 ? '#c62828' : diffVsDocomo < 0 ? '#2e7d32' : 'var(--gray-text)';
+    const starScore  = isDoc ? 5 : Math.max(1, Math.min(4, Math.round(4 - diffVsDocomo / 500)));
 
     let diffBadge = '';
     if (!isDoc) {
-      if (diff > 0)      diffBadge = `<span class="badge badge-diff-up">docomo光より +${diff.toLocaleString()}円/月</span>`;
-      else if (diff < 0) diffBadge = `<span class="badge badge-diff-down">docomo光より ${diff.toLocaleString()}円/月</span>`;
-      else               diffBadge = `<span class="badge badge-same">同額</span>`;
+      if (diffVsDocomo > 0)      diffBadge = `<span class="badge badge-diff-up">docomo光より +${diffVsDocomo.toLocaleString()}円/月</span>`;
+      else if (diffVsDocomo < 0) diffBadge = `<span class="badge badge-diff-down">docomo光より ${diffVsDocomo.toLocaleString()}円/月</span>`;
+      else                       diffBadge = `<span class="badge badge-same">同額</span>`;
     }
 
     const recoBadge    = isDoc        ? '<span class="badge badge-recommend">おすすめ</span>' : '';
     const currentBadge = r.isCurrent  ? '<span class="badge badge-current">現在ご利用中</span>' : '';
 
+    // キャッシュバック表示（CBがある場合のみ、内容を明確に表示）
+    
+
+    // docomo家族割表示
+    const familyDiscHtml = isDoc && r.monthlyDiscount > 0
+      ? `<tr><td class="lbl saving">　家族割引（${people}名）</td><td class="val saving">△${r.monthlyDiscount.toLocaleString()}円/月</td></tr>`
+      : '';
+
+    // 参照URLHTML
     const spUrlHtml = r.c.sp_url
       ? `<div class="sp-url-row">
            <i class="ti ti-link" aria-hidden="true"></i>
-           <span>参照サイト：</span>
+           <span>公式サイト：</span>
            <a href="${r.c.sp_url}" target="_blank" rel="noopener noreferrer">${r.c.sp_url}</a>
          </div>`
       : '';
@@ -1085,54 +1059,58 @@ function calcAll() {
           <div class="rank-badge ${badgeClass}">${rank}</div>
           <div class="rank-name">${r.c.name}${recoBadge}${currentBadge}</div>
           <div class="rank-price">
-            <div><span class="price-num">${r.monthly.toLocaleString()}</span><span class="price-unit">円/月</span></div>
+            <div><span class="price-num">${r.monthlyActual.toLocaleString()}</span><span class="price-unit">円/月</span></div>
             <div>${starsHtml(starScore)} ${diffBadge}</div>
           </div>
           <i class="ti ti-chevron-down chevron" id="chv${i}" aria-hidden="true"></i>
         </div>
         <div class="accord-body" id="acc${i}">
           <table class="cost-table">
-            <tr><td class="lbl" colspan="2" style="font-weight:600;padding-bottom:4px;">【初期費用】</td></tr>
+
+            <!-- ===== 月額料金セクション ===== -->
+            <tr><td class="lbl" colspan="2" style="font-weight:600;padding-bottom:4px;">【月額料金】毎月払う金額</td></tr>
+            <tr><td class="lbl">　基本月額</td><td class="val">${r.c.monthly.toLocaleString()}円/月</td></tr>
+            ${familyDiscHtml}
+            <tr class="sep-row total-row">
+              <td class="lbl">月額（実際に払う金額）</td>
+              <td class="val" style="color:var(--docomo-red);">${r.monthlyActual.toLocaleString()}円/月</td>
+            </tr>
+
+            ${!isDoc ? `
+            <tr class="sep-row">
+              <td class="lbl" style="color:${diffColor};font-weight:600;">docomo光との月額差</td>
+              <td class="val" style="color:${diffColor};font-weight:700;">${diffSign}${diffVsDocomo.toLocaleString()}円/月</td>
+            </tr>` : ''}
+
+            <!-- ===== 初期費用セクション ===== -->
+            <tr class="sep-row"><td class="lbl" colspan="2" style="font-weight:600;padding-top:8px;padding-bottom:4px;">【初期費用】加入時の一回払い</td></tr>
             <tr><td class="lbl">　事務手数料</td><td class="val">${r.c.initial.toLocaleString()}円</td></tr>
             <tr><td class="lbl">　工事費</td><td class="val">${r.c.construction.toLocaleString()}円</td></tr>
-            <tr><td class="lbl">　現在の解約金</td><td class="val">${currentCancel.toLocaleString()}円</td></tr>
             
-            <tr class="sep-row"><td class="lbl" colspan="2" style="font-weight:600;padding-top:8px;padding-bottom:4px;">【月額費用】</td></tr>
-            <tr><td class="lbl">　月額料金</td><td class="val">${r.c.monthly.toLocaleString()}円/月</td></tr>
-            
-            <tr class="sep-row"><td class="lbl">かかるコスト合計（${period}ヶ月）</td><td class="val">${r.gross.toLocaleString()}円</td></tr>
-            <tr><td class="lbl saving">　キャンペーン還元</td><td class="val saving">△${r.c.cashback.toLocaleString()}円</td></tr>
-            
-            <!-- 👑 割引注釈の追記 -->
-            <tr>
-              <td class="lbl saving">
-                　docomo家族割 × ${people}名 × ${period}ヶ月<br>
-                <span style="font-size:10px;">※試算は最大割引額（1,210円/月）で計算</span>
-              </td>
-              <td class="val saving">△${r.familyDisc.toLocaleString()}円</td>
+	<tr class="sep-row total-row">
+              <td class="lbl">初期費用合計</td>
+              <td class="val">${r.initialGross.toLocaleString()}円</td>
             </tr>
-            
-            <tr class="sep-row total-row"><td class="lbl">実質トータルコスト</td><td class="val">${r.total.toLocaleString()}円</td></tr>
-            <tr><td class="lbl" style="font-size:14px;font-weight:700;">実質月額</td>
-                <td class="val" style="font-size:16px;color:var(--docomo-red);">${r.monthly.toLocaleString()}円/月</td></tr>
-          
-          ${!isDoc ? (() => {
-            const monthDiff = r.monthly - docomoResult.monthly;
-            const yearDiff  = monthDiff * 12;
-            let diffColor, sign;
-            if (monthDiff > 0) { diffColor = '#c62828'; sign = '+'; }
-            else if (monthDiff < 0) { diffColor = '#2e7d32'; sign = ''; }
-            else { diffColor = 'var(--gray-text)'; sign = '±'; }
-            return `
-          <tr class="sep-row">
-            <td class="lbl" style="color:${diffColor};font-weight:600;">docomo光との月額差</td>
-            <td class="val" style="color:${diffColor};font-weight:700;">${sign}${monthDiff.toLocaleString()}円/月</td>
-          </tr>
-          <tr>
-            <td class="lbl" style="color:${diffColor};font-weight:600;">年間（12ヶ月）での差額</td>
-            <td class="val" style="color:${diffColor};font-weight:700;">${sign}${yearDiff.toLocaleString()}円/年</td>
-          </tr>`;
-          })() : ''}
+            ${r.c.cashback > 0 ? `
+            <tr>
+              <td class="lbl saving" style="font-size:11px;">　※キャンペーンCB（加入後受取）</td>
+              <td class="val saving">+${r.c.cashback.toLocaleString()}円</td>
+        </tr>` : ''}
+
+            <!-- ===== 解約金セクション ===== -->
+            <tr class="sep-row"><td class="lbl" colspan="2" style="font-weight:600;padding-top:8px;padding-bottom:4px;">【解約金】退会時の費用</td></tr>
+            ${r.isCurrent
+              ? `<tr>
+                   <td class="lbl">　現在の回線の解約金<br><span style="font-size:10px;">※ご入力値</span></td>
+                   <td class="val" style="color:#c62828;">${currentCancel.toLocaleString()}円</td>
+                 </tr>
+                 <tr>
+                   <td class="lbl">　参考（公式掲載値）</td>
+                   <td class="val" style="color:var(--gray-text);">${r.c.cancel.toLocaleString()}円</td>
+                 </tr>`
+              : `<tr><td class="lbl">　解約金</td><td class="val">${r.c.cancel.toLocaleString()}円</td></tr>`
+            }
+
           </table>
           <p class="cost-note">${r.c.notes}</p>
           ${spUrlHtml}
