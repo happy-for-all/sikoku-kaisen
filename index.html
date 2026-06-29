@@ -733,12 +733,13 @@
 "use strict";
 
 const COMPANIES = [
-  {
-    id: 'docomo', name: 'ドコモ光', ...
+ {
+    id: 'docomo', name: 'ドコモ光', area_pref: ['徳島','香川','愛媛','高知'],
     monthly: 5720, monthly_mansion: 4400, initial: 4950, construction: 28600,
-    ...
-    cashback: 28600, ...
+    term: 24, cancel: 5500, discount_pp: 1210, cashback: 28600, speed: 1000,
     notes: '光コラボ。工事費28,600円はdポイント還元で実質無料。ドコモMAX等は1210円割引。',
+    is_manual: true,
+    sp_url: 'https://www.nttdocomo.co.jp/internet/hikari/charge/'
   },
   {
     id: 'picara', name: 'ピカラ光（STNet）', area_pref: ['徳島','香川','愛媛','高知'],
