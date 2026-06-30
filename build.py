@@ -108,7 +108,7 @@ def _fallback_companies() -> list[dict]:
             'monthly_fee': 5720, 'monthly_mansion': 4400,
             'initial_fee': 4950, 'construction_fee': 28600,
             'contract_term_months': 24, 'cancellation_fee': 5500,
-            'docomo_discount_per_person': 1210, 'campaign_cashback': 28600,
+            'docomo_discount_per_person': 1210, 'campaign_cashback': 48600,
             'speed_mbps': 1000, 'discount_type': 'family',
             'sp_url': 'https://www.nttdocomo.co.jp/internet/hikari/charge/', 
             'is_manual': True, 'is_manual_required': False,
