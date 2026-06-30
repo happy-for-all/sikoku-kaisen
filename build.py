@@ -112,7 +112,7 @@ def _fallback_companies() -> list[dict]:
             'speed_mbps': 1000, 'discount_type': 'family',
             'sp_url': 'https://www.nttdocomo.co.jp/internet/hikari/charge/', 
             'is_manual': True, 'is_manual_required': False,
-            'notes': '光コラボ。工事費28,600円はdポイント還元で実質無料。ドコモMAX等は1210円割引。',
+            'notes': '光コラボ。工事費28,600円はdポイント還元で実質無料。さらに20,000ポイント還元中（キャンペーン）。ドコモMAX等は1210円割引。',
         },
         {
             'id': 'picara', 'name': 'ピカラ光（STNet）',
